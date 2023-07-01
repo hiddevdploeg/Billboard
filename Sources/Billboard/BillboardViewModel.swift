@@ -17,24 +17,27 @@ public final class BillboardViewModel : ObservableObject {
         self.configuration = configuration
     }
     
+    public static var networkConfiguration : URLSessionConfiguration {
+        let config = URLSessionConfiguration.default
+        config.multipathServiceType = .handover
+        config.waitsForConnectivity = true
+        config.timeoutIntervalForRequest = 30
+        return config
+    }
+    
     public func showAdvertisement() async {
-        if let newAd = try? await fetchRandomAd() {
+        guard let url = configuration.adsJSONURL else { return }
+
+        if let newAd = try? await BillboardViewModel.fetchRandomAd(from: url) {
             await MainActor.run {
                 advertisement = newAd
             }
         }
     }
     
-    public func fetchRandomAd() async throws -> BillboardAd? {
-        guard let url = configuration.adsJSONURL else { return nil }
-        
-        let config = URLSessionConfiguration.default
-        config.multipathServiceType = .handover
-        config.waitsForConnectivity = true
-        config.timeoutIntervalForRequest = 30
-        let session = URLSession(configuration: config)
+    public static func fetchRandomAd(from url: URL) async throws -> BillboardAd? {
+        let session = URLSession(configuration: BillboardViewModel.networkConfiguration)
         session.sessionDescription = "Fetching Billboard Ad"
-        
         
         do {
             let (data, _) = try await session.data(from: url)
@@ -50,17 +53,10 @@ public final class BillboardViewModel : ObservableObject {
         return nil
     }
     
-    public func fetchAllAds() async throws -> [BillboardAd] {
-        guard let url = configuration.adsJSONURL else { return [] }
-        
-        let config = URLSessionConfiguration.default
-        config.multipathServiceType = .handover
-        config.waitsForConnectivity = true
-        config.timeoutIntervalForRequest = 30
-        let session = URLSession(configuration: config)
-        session.sessionDescription = "Fetching Billboard Ad"
-        
-        
+    public static func fetchAllAds(from url: URL) async throws -> [BillboardAd] {
+        let session = URLSession(configuration: BillboardViewModel.networkConfiguration)
+        session.sessionDescription = "Fetching All Billboard Ads"
+                
         do {
             let (data, _) = try await session.data(from: url)
             let decoder = JSONDecoder()
