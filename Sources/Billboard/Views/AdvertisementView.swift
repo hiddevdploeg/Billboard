@@ -8,15 +8,12 @@ import SwiftUI
 import StoreKit
 
 struct AdvertisementView<Content:View>: View {
-    @Environment(\.dismiss) private var dismiss
-    
     let advert : BillboardAd
     let config : BillboardConfiguration
     
     @ViewBuilder var paywall: () -> Content
     
     @State private var showPaywall : Bool = false
-    @State private var counter : Int = 15
     @State private var canDismiss = false
     
     var body: some View {

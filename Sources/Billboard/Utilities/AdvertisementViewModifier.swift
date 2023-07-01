@@ -8,7 +8,7 @@
 import SwiftUI
 
 extension View {
-    public func showAdvertisement<V: View>(when condition: Binding<Bool>,
+    public func showAdvertOverlay<V: View>(when condition: Binding<Bool>,
                                            configuration: BillboardConfiguration = BillboardConfiguration(),
                                            paywall: @escaping () -> V) -> some View {
         self.modifier(AdvertisementModifier(showAd: condition, config: configuration, paywall: paywall))

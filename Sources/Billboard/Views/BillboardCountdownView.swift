@@ -15,7 +15,6 @@ struct BillboardCountdownView : View {
     
     
     @State private var seconds : Int = 15
-    @State private var counterLabel : Int = 15
     @State private var timerProgress : CGFloat = 0.0
     
     private let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
@@ -27,9 +26,16 @@ struct BillboardCountdownView : View {
             Circle()
                 .trim(from: 0, to: timerProgress)
                 .stroke(advert.tint, style: StrokeStyle(lineWidth: 2, lineCap: .round, lineJoin: .round))
-            Text("\(counterLabel)")
-                .font(.system(.caption, design: .rounded).monospacedDigit().weight(.bold))
+
+            Text("\(seconds)")
+                .font(.system(.caption, design: .rounded, weight: .bold)).monospacedDigit()
                 .rotationEffect(.degrees(90))
+                .minimumScaleFactor(0.5)
+                .onReceive(timer) { _ in
+                    if seconds > 0 {
+                        seconds -= 1
+                    }
+                }
         }
         .foregroundColor(advert.tint)
         .rotationEffect(.degrees(-90))
@@ -40,16 +46,9 @@ struct BillboardCountdownView : View {
                 timerProgress = 1.0
             }
         }
-        .onReceive(timer) { _ in
-            if seconds > 0 {
-                seconds -= 1
-            }
-        }
         .onChange(of: seconds) { _ in
             if seconds < 1 {
                 canDismiss = true
-            } else {
-                counterLabel = seconds
             }
         }
         .onTapGesture {
@@ -63,6 +62,9 @@ struct BillboardCountdownView : View {
 
 struct BillboardCountdownView_Previews: PreviewProvider {
     static var previews: some View {
-        BillboardCountdownView(advert: BillboardSamples.sampleDefaultAd, totalDuration: 15.0, canDismiss: .constant(false))
+        ZStack {
+            BillboardSamples.sampleDefaultAd.background.ignoresSafeArea()
+            BillboardCountdownView(advert: BillboardSamples.sampleDefaultAd, totalDuration: 15.0, canDismiss: .constant(false))
+        }
     }
 }

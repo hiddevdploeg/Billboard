@@ -21,9 +21,9 @@ public struct BillboardConfiguration {
     
     public init(adsJSONURL: URL? = URL(string:"https://billboard-source.vercel.app/ads.json"),
                 allowHaptics: Bool = true,
-                duration: TimeInterval = 15.0) {
+                advertDuration: TimeInterval = 15.0) {
         self.adsJSONURL = adsJSONURL
         self.allowHaptics = allowHaptics
-        self.duration = duration
+        self.duration = advertDuration
     }
 }
