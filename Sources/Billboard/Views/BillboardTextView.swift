@@ -12,6 +12,8 @@ struct BillboardTextView : View {
     
     var body: some View {
         VStack(spacing: 6) {
+            Image("AdLabel")
+                .foregroundColor(advert.tint)
             Text(advert.title)
                 .font(.system(.title2, design: .rounded, weight: .heavy))
             Text(advert.description)

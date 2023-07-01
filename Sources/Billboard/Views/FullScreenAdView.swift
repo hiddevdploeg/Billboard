@@ -19,7 +19,7 @@ struct FullScreenAdView : View {
                     .padding(.bottom, 24)
                 Spacer()
             }
-            Color.clear.frame(height: 120)
+            Color.clear.frame(height: 48)
         }
         .background(
             ZStack {
