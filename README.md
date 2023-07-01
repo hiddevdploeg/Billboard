@@ -1,6 +1,7 @@
-# Billboard
-Billboard is a module that enables the incorporation of advertisement highlights for applications created by independent developers. Its unique feature lies in its execution of ads without the use of tracking measures or unwanted cookies. This way you can still have the annoyance of advertisements without the nasty bits and therefor you get a free "Remove Ads" selling point for your premium tier.  
+![NowPlaying Copy 4@1x](https://github.com/hiddevdploeg/Billboard/assets/5016984/cbddccf6-0870-4446-9941-792151c090be)
 
+# Billboard
+Billboard is a module that enables the incorporation of advertisement highlights for applications created by independent developers. Its unique feature lies in its execution of ads without the use of tracking measures or unwanted cookies. This way, you can still have the annoyance of advertisements without the nasty bits, and therefor you get a free "Remove Ads" selling point for your premium tier.
 
 ## How to display an Ad
 
@@ -99,8 +100,8 @@ Here's an example of how your source list could look like.
       "backgroundColor" : "344442",
       "textColor" : "EFDED7",
       "tintColor" : "EFDED7",
-      "isFullscreen": false,
-      "transparentBG": true
+      "fullscreen": false,
+      "transparent": true
     }
   ]
 }
@@ -113,26 +114,23 @@ You're welcome to submit your app to be part of this package. Each ad will be re
 
 **[You can submit your app here](https://forms.gle/nWV4dT3taBF62WXbA)**
 
-### App Requirements
+### Ad Requirements
 - **Apple ID of App**: The Apple ID is a 9- or 10-digit number found in your App Store URL or in App Store Connect.
 - **Name of App**: The name of the app you're promoting
-- **Title**: The headline of the advertisement (maximum 25 characters).
-- **Description**: The description of the advertisement (maximum 140 characters).
+- **Title**: The advertisement headline (maximum 25 characters).
+- **Description**: The advertisement description (maximum 140 characters).
 - **Media**: The image used in your advertisement.
 
-
-**Media Guidelines**
+#### Media Guidelines
 - Image should be a minimum of 800x800 in resolution.
 - The image should not contain any text outside of the visual content.
 - Avoid using your App Icon as the image (as it's already displayed by default).
-
-
 
 ## Special thanks to
 [tundsdev](https://twitter.com/tundsdev) for CachedImage implementation
 
 ## Authors
-This library is created by [Hidde van der Ploeg](https://hidde.design) feel free to reach out on [Twitter](https://twitter.com/hiddevdploeg) or [Mastodon](https://mastodon.design/@hidde) if you have any questions or remarks.
+This library is created by [Hidde van der Ploeg](https://hidde.design). Feel free to reach out on [Twitter](https://twitter.com/hiddevdploeg) or [Mastodon](https://mastodon.design/@hidde) if you have any questions or remarks.
 
 ## License
 Billboard is available under the MIT license.
