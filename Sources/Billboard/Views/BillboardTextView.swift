@@ -11,13 +11,23 @@ struct BillboardTextView : View {
     let advert: BillboardAd
     
     var body: some View {
-        VStack(spacing: 6) {
-            Image("AdLabel")
-                .foregroundColor(advert.tint)
-            Text(advert.title)
-                .font(.system(.title2, design: .rounded, weight: .heavy))
-            Text(advert.description)
-                .font(.system(.body, design: .rounded))
+        VStack(spacing: 10) {
+            ZStack {
+                RoundedRectangle(cornerRadius: 4, style: .continuous)
+                    .fill(advert.tint.opacity(0.15))
+                Text("AD")
+                    .font(.system(size: 10, weight: .heavy, design: .rounded))
+                    .foregroundColor(advert.tint)
+                    .offset(x:0.5)
+            }
+            .frame(width: 26, height: 18)
+            
+            VStack(spacing: 6) {
+                Text(advert.title)
+                    .font(.system(.title2, design: .rounded, weight: .heavy))
+                Text(advert.description)
+                    .font(.system(.body, design: .rounded))
+            }
         }
         .multilineTextAlignment(.center)
         .foregroundColor(advert.text)
@@ -29,6 +39,6 @@ struct BillboardTextView : View {
 
 struct BillboardTextView_Previews: PreviewProvider {
     static var previews: some View {
-        BillboardTextView(advert: BillboardSamples.sampleFullScreenAd)
+        DefaultAdView(advert: BillboardSamples.sampleDefaultAd)
     }
 }
