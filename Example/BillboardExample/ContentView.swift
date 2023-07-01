@@ -55,6 +55,13 @@ struct ContentView: View {
             }
             .font(.system(.body, design: .rounded, weight: .medium))
         }
+        .refreshable {
+            Task {
+                if let allAds = try? await BillboardViewModel.fetchAllAds(from: config.adsJSONURL!) {
+                    self.allAds = allAds
+                }
+            }
+        }
         .onChange(of: premium.didBuyPremium) { newValue in
             if newValue {
                 showRandomAdvert = !newValue
