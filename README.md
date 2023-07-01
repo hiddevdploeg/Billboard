@@ -3,6 +3,7 @@
 # Billboard
 Billboard is a module that enables the incorporation of advertisement highlights for applications created by independent developers. Its unique feature lies in its execution of ads without the use of tracking measures or unwanted cookies. This way, you can still have the annoyance of advertisements without the nasty bits, and therefor you get a free "Remove Ads" selling point for your premium tier.
 
+
 ## How to display an Ad
 
 Billboard provides an easy way to present an ad overlay on any SwiftUI `View`. Here's a simple example:
@@ -66,7 +67,7 @@ public struct BillboardConfiguration {
 }
 ```
 
-This also allows you to use your own source of ads that all follow the `BillboardAdResponse` format
+This also allows you to use your own source of ads that follow the `BillboardAdResponse` format.
 
 ```swift
 
