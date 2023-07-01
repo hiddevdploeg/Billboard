@@ -8,13 +8,19 @@ import SwiftUI
 import StoreKit
 
 public struct AdvertisementView<Content:View>: View {
-    public let advert : BillboardAd
-    public let config : BillboardConfiguration
+    let advert : BillboardAd
+    let config : BillboardConfiguration
     
-    @ViewBuilder public var paywall: () -> Content
+    @ViewBuilder var paywall: () -> Content
     
     @State private var showPaywall : Bool = false
     @State private var canDismiss = false
+    
+    public init(advert: BillboardAd, config: BillboardConfiguration, paywall: @escaping () -> Content) {
+        self.advert = advert
+        self.config = config
+        self.paywall = paywall
+    }
     
     public var body: some View {
         ZStack(alignment: .top) {
