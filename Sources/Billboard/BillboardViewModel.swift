@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-final class BillboardViewModel : ObservableObject {
+public final class BillboardViewModel : ObservableObject {
     
     let configuration: BillboardConfiguration
     

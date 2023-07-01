@@ -9,13 +9,13 @@ import Foundation
 import SwiftUI
 
 
-struct BillboardAd : Codable, Identifiable, Equatable {
+public struct BillboardAd : Codable, Identifiable, Equatable {
     
-    static func == (lhs: BillboardAd, rhs: BillboardAd) -> Bool {
+    public static func == (lhs: BillboardAd, rhs: BillboardAd) -> Bool {
         lhs.id == rhs.id
     }
     
-    var id : String {
+    public var id : String {
         return "\(name)+\(appStoreID)"
     }
     

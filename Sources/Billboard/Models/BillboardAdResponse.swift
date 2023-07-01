@@ -7,6 +7,6 @@
 
 import Foundation
 
-struct BillboardAdResponse : Codable {
+public struct BillboardAdResponse : Codable {
     let ads : [BillboardAd]
 }
