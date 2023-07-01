@@ -1,4 +1,5 @@
-![NowPlaying Copy 4@1x](https://github.com/hiddevdploeg/Billboard/assets/5016984/cbddccf6-0870-4446-9941-792151c090be)
+
+<img width="1067" alt="Header Photo@2x" src="https://github.com/hiddevdploeg/Billboard/assets/5016984/b3c6c38d-eff9-4114-b011-d3a46a0993f2">
 
 # Billboard
 Billboard is a module that enables the incorporation of advertisement highlights for applications created by independent developers. Its unique feature lies in its execution of ads without the use of tracking measures or unwanted cookies. This way, you can still be annoyed by advertisements without the nasty bits, and therefore you get a free "Remove Ads" selling point for your premium tier.
@@ -42,6 +43,8 @@ ContentView()
 ```
 
 **TIP**: When you're running a debug version of your app you can tap on the timer to show a dismiss button right away.
+
+![NowPlaying Copy 4@1x](https://github.com/hiddevdploeg/Billboard/assets/5016984/cbddccf6-0870-4446-9941-792151c090be)
 
 ## Configuration
 
