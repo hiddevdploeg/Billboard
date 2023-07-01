@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct BillboardCountdownView : View {
+public struct BillboardCountdownView : View {
     
     let advert : BillboardAd
     let totalDuration : TimeInterval
@@ -19,7 +19,7 @@ struct BillboardCountdownView : View {
     
     private let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
-    var body: some View {
+    public var body: some View {
         ZStack {
             Circle()
                 .stroke(advert.tint.opacity(0.2), style: StrokeStyle(lineWidth: 2, lineCap: .round, lineJoin: .round))

@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-struct DefaultAdView : View {
+public struct DefaultAdView : View {
     let advert : BillboardAd
     
-    var body: some View {
+    public var body: some View {
         ViewThatFits(in: .horizontal) {
             HStack {
                 Spacer()

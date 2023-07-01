@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CachedImage<Content: View>: View {
+public struct CachedImage<Content: View>: View {
     
     @StateObject private var manager = CachedImageManager()
     let url: String
@@ -26,7 +26,7 @@ struct CachedImage<Content: View>: View {
     }
     
     
-    var body: some View {
+    public var body: some View {
         ZStack {
             switch manager.currentState {
             case .loading:

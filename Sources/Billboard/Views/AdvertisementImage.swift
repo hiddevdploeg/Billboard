@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-struct AdvertisementImageView : View {
+public struct AdvertisementImageView : View {
     let advert : BillboardAd
     
-    var body: some View {
+    public var body: some View {
         CachedImage(url: advert.media.absoluteString) { phase in
             switch phase {
             case .empty:

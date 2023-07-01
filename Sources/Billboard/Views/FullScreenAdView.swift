@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-struct FullScreenAdView : View {
+public struct FullScreenAdView : View {
     let advert : BillboardAd
     
-    var body: some View {
+    public var body: some View {
         VStack {
             Spacer()
             HStack {
