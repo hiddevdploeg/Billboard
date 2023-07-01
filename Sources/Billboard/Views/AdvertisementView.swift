@@ -7,7 +7,7 @@
 import SwiftUI
 import StoreKit
 
-struct AdvertisementView<Content:View>: View {
+public struct AdvertisementView<Content:View>: View {
     let advert : BillboardAd
     let config : BillboardConfiguration
     
@@ -16,7 +16,7 @@ struct AdvertisementView<Content:View>: View {
     @State private var showPaywall : Bool = false
     @State private var canDismiss = false
     
-    var body: some View {
+    public var body: some View {
         ZStack(alignment: .top) {
             advert.background.ignoresSafeArea()
             
