@@ -8,10 +8,10 @@ import SwiftUI
 import StoreKit
 
 public struct AdvertisementView<Content:View>: View {
-    let advert : BillboardAd
-    let config : BillboardConfiguration
+    public let advert : BillboardAd
+    public let config : BillboardConfiguration
     
-    @ViewBuilder var paywall: () -> Content
+    @ViewBuilder public var paywall: () -> Content
     
     @State private var showPaywall : Bool = false
     @State private var canDismiss = false
