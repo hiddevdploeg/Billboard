@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct AdvertisementImageView : View {
+struct BillboardImageView : View {
     let advert : BillboardAd
     
     var body: some View {
@@ -36,8 +36,8 @@ struct AdvertisementImageView : View {
     }
 }
 
-struct AdvertisementImageView_Previews: PreviewProvider {
+struct BillboardImageView_Previews: PreviewProvider {
     static var previews: some View {
-        AdvertisementImageView(advert: BillboardSamples.sampleFullScreenAd)
+        BillboardImageView(advert: BillboardSamples.sampleFullScreenAd)
     }
 }

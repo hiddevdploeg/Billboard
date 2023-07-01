@@ -14,10 +14,10 @@ struct DefaultAdView : View {
         ViewThatFits(in: .horizontal) {
             HStack {
                 Spacer()
-                AdvertisementImageView(advert: advert)
+                BillboardImageView(advert: advert)
                 VStack {
                     Spacer()
-                    AdvertisementTextView(advert: advert)
+                    BillboardTextView(advert: advert)
                     Spacer()
                 }
                 Spacer()
@@ -25,8 +25,8 @@ struct DefaultAdView : View {
             
             VStack {
                 Spacer()
-                AdvertisementImageView(advert: advert)
-                AdvertisementTextView(advert: advert)
+                BillboardImageView(advert: advert)
+                BillboardTextView(advert: advert)
                 Spacer()
             }
             

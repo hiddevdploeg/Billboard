@@ -1,5 +1,5 @@
 //
-//  AdvertisementView.swift
+//  BillboardView.swift
 //
 //  Created by Hidde van der Ploeg on 27/06/2022.
 //
@@ -7,7 +7,7 @@
 import SwiftUI
 import StoreKit
 
-public struct AdvertisementView<Content:View>: View {
+public struct BillboardView<Content:View>: View {
     let advert : BillboardAd
     let config : BillboardConfiguration
     

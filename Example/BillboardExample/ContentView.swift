@@ -21,7 +21,7 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             List {
-                Section {
+                Section(content: {
                     Text("This example shows some different ways of presenting an ad but also lets you explore all Ads that are available right now!")
                     Button {
                         if !premium.didBuyPremium {
@@ -39,7 +39,8 @@ struct ContentView: View {
                         }
                         .padding(6)
                     }
-                }
+                    
+                }, footer: { Text("Total Ads: \(allAds.count)") })
                 
                 Section {
                     ForEach(allAds) { ad in
@@ -67,7 +68,7 @@ struct ContentView: View {
                 showRandomAdvert = !newValue
             }
         }
-        .showAdvertOverlay(when: $showRandomAdvert) {
+        .showBillboard(when: $showRandomAdvert) {
             // Replace this view with your Paywall
             VStack {
                 Text("Your Paywall goes here")
@@ -80,7 +81,7 @@ struct ContentView: View {
             }
         }
         .fullScreenCover(item: $adtoshow) { advert in
-            AdvertisementView(advert: advert, config: config, paywall: { Text("Paywall!") })
+            BillboardView(advert: advert, config: config, paywall: { Text("Paywall!") })
         }
         .task {
             

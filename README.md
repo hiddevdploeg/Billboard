@@ -15,14 +15,14 @@ Billboard provides an easy way to present an ad overlay on any SwiftUI `View`. H
 @State private var showRandomAdvert = false
 
 ContentView()
-    .showAdvertOverlay(when: $showRandomAdvert) {
+    .showBillboard(when: $showRandomAdvert) {
         // Replace this view with your Paywall
         Text("Your Paywall goes here")
     }
 
 ```
 
-Alternatively, you can customize the `AdvertisementView` and position it in any way that suits your app. This view takes a `BillboardAd`, a `BillboardConfiguration` (Optionally), and a view that represents your paywall:
+Alternatively, you can customize the `BillboardView` and position it in any way that suits your app. This view takes a `BillboardAd`, a `BillboardConfiguration` (Optionally), and a view that represents your paywall:
 
 ```swift
 
@@ -36,7 +36,7 @@ ContentView()
         advertisement = newAdvert
     }   
     .fullScreenCover(item: $advertisement) { advert in
-        AdvertisementView(advert: advert, paywall: { Text("Paywall") })
+        BillboardView(advert: advert, paywall: { Text("Paywall") })
     }
 
 ```
@@ -82,7 +82,7 @@ let config = BillboardConfiguration(
 )
 
 ContentView()
-    .showAdvertOverlay(when: $showRandomAdvert, configuration: config) {
+    .showBillboard(when: $showRandomAdvert, configuration: config) {
         // Replace this view with your Paywall
         Text("Your Paywall goes here")
     }

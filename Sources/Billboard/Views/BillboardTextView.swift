@@ -1,5 +1,5 @@
 //
-//  AdvertisementTextView.swift
+//  BillboardTextView.swift
 //  
 //
 //  Created by Hidde van der Ploeg on 01/07/2023.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct AdvertisementTextView : View {
+struct BillboardTextView : View {
     let advert: BillboardAd
     
     var body: some View {
@@ -25,8 +25,8 @@ struct AdvertisementTextView : View {
     }
 }
 
-struct AdvertisementTextView_Previews: PreviewProvider {
+struct BillboardTextView_Previews: PreviewProvider {
     static var previews: some View {
-        AdvertisementTextView(advert: BillboardSamples.sampleFullScreenAd)
+        BillboardTextView(advert: BillboardSamples.sampleFullScreenAd)
     }
 }

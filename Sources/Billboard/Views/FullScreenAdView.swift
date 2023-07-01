@@ -15,10 +15,11 @@ struct FullScreenAdView : View {
             Spacer()
             HStack {
                 Spacer()
-                AdvertisementTextView(advert: advert)
+                BillboardTextView(advert: advert)
                     .padding(.bottom, 24)
                 Spacer()
             }
+            .offset(y: -100)
         }
         .background(
             ZStack {

@@ -1,5 +1,5 @@
 //
-//  AdvertisementViewModifier.swift
+//  BillboardViewModifier.swift
 //
 //
 //  Created by Hidde van der Ploeg on 30/06/2023.
@@ -8,7 +8,7 @@
 import SwiftUI
 
 extension View {
-    public func showAdvertOverlay<V: View>(when condition: Binding<Bool>,
+    public func showBillboard<V: View>(when condition: Binding<Bool>,
                                            configuration: BillboardConfiguration = BillboardConfiguration(),
                                            paywall: @escaping () -> V) -> some View {
         self.modifier(AdvertisementModifier(showAd: condition, config: configuration, paywall: paywall))
@@ -43,7 +43,7 @@ public struct AdvertisementModifier<V: View>: ViewModifier {
                 }
             }
             .fullScreenCover(item: $monitor.advertisement, onDismiss: { showAd.wrappedValue = false }) { advert in
-                AdvertisementView(advert: advert, config: config, paywall: { paywall() })
+                BillboardView(advert: advert, config: config, paywall: { paywall() })
             }
     }
 }
