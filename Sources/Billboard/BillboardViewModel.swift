@@ -7,26 +7,26 @@
 
 import SwiftUI
 
-final class BillboardMonitor : ObservableObject {
+final class BillboardViewModel : ObservableObject {
     
-    static let shared = BillboardMonitor()
+    let configuration: BillboardConfiguration
     
     @Published var advertisement : BillboardAd? = nil
     
-    var advertCountdown = 2
-    
-    var showAdvert : Bool {
-        advertCountdown == 0
+    init(configuration: BillboardConfiguration = BillboardConfiguration()) {
+        self.configuration = configuration
     }
     
-    @MainActor
-    func resetAdvertCountdown() {
-        advertCountdown = 2
-        advertisement = nil
+    public func showAdvertisement() async {
+        if let newAd = try? await fetchRandomAd() {
+            await MainActor.run {
+                advertisement = newAd
+            }
+        }
     }
     
-    func fetchRandomAd() async throws -> BillboardAd? {
-        guard let url = BillboardConstants.adsURL else { return nil }
+    public func fetchRandomAd() async throws -> BillboardAd? {
+        guard let url = configuration.adsJSONURL else { return nil }
         
         let config = URLSessionConfiguration.default
         config.multipathServiceType = .handover
@@ -50,8 +50,8 @@ final class BillboardMonitor : ObservableObject {
         return nil
     }
     
-    func fetchAllAds() async throws -> [BillboardAd] {
-        guard let url = BillboardConstants.adsURL else { return [] }
+    public func fetchAllAds() async throws -> [BillboardAd] {
+        guard let url = configuration.adsJSONURL else { return [] }
         
         let config = URLSessionConfiguration.default
         config.multipathServiceType = .handover
@@ -74,12 +74,5 @@ final class BillboardMonitor : ObservableObject {
         return []
     }
     
-    @MainActor
-    func updateAdvert() async {
-        if self.showAdvert {
-            self.advertisement = try? await self.fetchRandomAd()
-            return
-        }
-        self.advertCountdown -= 1
-    }
+    
 }

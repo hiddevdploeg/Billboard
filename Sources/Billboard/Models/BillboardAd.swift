@@ -15,37 +15,45 @@ struct BillboardAd : Codable, Identifiable, Equatable {
         lhs.id == rhs.id
     }
     
-    
     var id : String {
         return "\(name)+\(appStoreID)"
     }
     
-    // Should be the App Store ID e.g. 1596487035
+    /// Should be the Apple ID of App that's connected to the Ad (e.g. 1596487035)
     let appStoreID : String
     
+    /// Name of ad (e.g. NowPlaying)
     let name : String
+    
+    /// Title that's displayed on the Ad (Recommended to be no more than 25 characters)
     let title : String
+    
+    /// Description that's displayed on the Ad (Recommended to be no more than 140 characters)
     let description : String
     
+    /// URL of image that's used in the Ad
     let media : URL
     
-    /// App Store Link
+    /// App Store Link based on `appStoreID`
     var appStoreLink : URL {
         return URL(string: "https://apps.apple.com/app/apple-store/id\(id)")!
     }
-    
 
     /// Main Background color in HEX format
     let backgroundColor : String
+    
+    /// Text color in HEX format
     let textColor : String
-    let ctaColor : String
+    
+    /// Main tint color in HEX format
+    let tintColor : String
     
     
-    /// For fullscreen media styling (should be true when the main image is a photo
+    /// For fullscreen media styling (should be true when the main image is a photo)
     let isFullscreen: Bool
+    
+    /// Allows blurred background when the main image is a PNG
     let transparentBG : Bool
-    
-    
     
     var background : Color {
         return Color(hex: self.backgroundColor)
@@ -55,8 +63,8 @@ struct BillboardAd : Codable, Identifiable, Equatable {
         return Color(hex: self.textColor)
     }
     
-    var cta : Color {
-        return Color(hex: self.ctaColor)
+    var tint : Color {
+        return Color(hex: self.tintColor)
     }
 }
 

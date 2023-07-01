@@ -16,7 +16,7 @@ struct FullScreenAdView : View {
             HStack {
                 Spacer()
                 AdvertisementTextView(advert: advert)
-                    .padding(.bottom, 40)
+                    
                 Spacer()
             }
         }
@@ -26,9 +26,9 @@ struct FullScreenAdView : View {
                     switch phase {
                     case .empty:
                         ZStack {
-                            Color(hex: advert.backgroundColor)
+                            advert.background
                             ProgressView()
-                                .tint(Color(hex: advert.ctaColor))
+                                .tint(advert.tint)
                         }
                     case .success(let image):
                         image
@@ -37,9 +37,9 @@ struct FullScreenAdView : View {
                             .ignoresSafeArea(.all)
                     default:
                         ZStack {
-                            Color(hex: advert.backgroundColor)
+                            advert.background
                             Image(systemName: "bolt.slash.fill")
-                                .foregroundColor(Color(hex: advert.ctaColor))
+                                .foregroundColor(advert.tint)
                         }
                     }
                 })
@@ -52,6 +52,6 @@ struct FullScreenAdView : View {
 
 struct FullScreenAdView_Previews: PreviewProvider {
     static var previews: some View {
-        FullScreenAdView(advert: BillboardConstants.sampleFullscreenAd)
+        FullScreenAdView(advert: BillboardSamples.sampleFullScreenAd)
     }
 }

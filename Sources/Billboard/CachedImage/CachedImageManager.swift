@@ -28,10 +28,7 @@ final class CachedImageManager: ObservableObject {
             let data = try await imageRetriver.fetch(imgUrl)
             self.currentState = .success(data: data)
             cache.set(object: data as NSData,
-                      forKey: imgUrl as NSString)
-            
-//            debugPrint("📱 Caching image: \(imgUrl)")
-            
+                      forKey: imgUrl as NSString)            
         } catch {
             self.currentState = .failed(error: error)
         }
