@@ -16,7 +16,7 @@ public struct AdvertisementView<Content:View>: View {
     @State private var showPaywall : Bool = false
     @State private var canDismiss = false
     
-    public init(advert: BillboardAd, config: BillboardConfiguration, paywall: @escaping () -> Content) {
+    public init(advert: BillboardAd, config: BillboardConfiguration = BillboardConfiguration(), paywall: @escaping () -> Content) {
         self.advert = advert
         self.config = config
         self.paywall = paywall

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public struct CachedImage<Content: View>: View {
+struct CachedImage<Content: View>: View {
     
     @StateObject private var manager = CachedImageManager()
     let url: String

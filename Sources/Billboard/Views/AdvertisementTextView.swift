@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-public struct AdvertisementTextView : View {
+struct AdvertisementTextView : View {
     let advert: BillboardAd
     
-    public var body: some View {
+    var body: some View {
         VStack(spacing: 0) {
             Text(advert.title)
                 .font(.system(.title2, design: .rounded, weight: .heavy))

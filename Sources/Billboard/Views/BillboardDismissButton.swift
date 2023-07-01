@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-public struct BillboardDismissButton : View {
+struct BillboardDismissButton : View {
     @Environment(\.dismiss) var dismiss
     
-    public var body: some View {
+    var body: some View {
         Button {
             dismiss()
         } label: {

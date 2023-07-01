@@ -32,8 +32,8 @@ ContentView()
         let newAdvert = try? await viewModel.fetchRandomAd()
         advertisement = newAdvert
     }   
-    .sheet(item: advertisement) { advert in
-        AdvertisementView(advert: advert, paywall: { paywall() })
+    .fullScreenCover(item: $advertisement) { advert in
+        AdvertisementView(advert: advert, paywall: { Text("Paywall") })
     }
 
 ```
