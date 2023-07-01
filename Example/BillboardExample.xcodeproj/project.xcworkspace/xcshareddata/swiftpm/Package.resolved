@@ -1,0 +1,14 @@
+{
+  "pins" : [
+    {
+      "identity" : "billboard",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/hiddevdploeg/Billboard.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "951ff40b33979d97509b8cfdfa14449df31db1ea"
+      }
+    }
+  ],
+  "version" : 2
+}
