@@ -58,7 +58,6 @@ public final class BillboardViewModel : ObservableObject {
             print("❌ Failed to decode  from bundle: \(error.localizedDescription)")
         }
         
-        
         return nil
     }
     

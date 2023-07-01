@@ -27,6 +27,8 @@ struct ContentView: View {
                         if !premium.didBuyPremium {
                             showRandomAdvert = true
                         }
+                        
+                        
                     } label: {
                         HStack {
                             Image(systemName: "eyes")
