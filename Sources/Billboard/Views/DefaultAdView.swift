@@ -37,7 +37,7 @@ struct DefaultAdView : View {
     
     @ViewBuilder
     var backgroundView : some View {
-        if advert.transparentBG {
+        if advert.transparent {
             CachedImage(url: advert.media.absoluteString, content: { phase in
                 switch phase {
                 case .success(let image):

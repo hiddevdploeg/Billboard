@@ -20,7 +20,7 @@ struct AdvertisementView<Content:View>: View {
         ZStack(alignment: .top) {
             advert.background.ignoresSafeArea()
             
-            if advert.isFullscreen {
+            if advert.fullscreen {
                 FullScreenAdView(advert: advert)
             } else {
                 DefaultAdView(advert: advert)
