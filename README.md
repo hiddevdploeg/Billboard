@@ -131,11 +131,12 @@ Each ad will be reviewed before inclusion.
 - Image should be a minimum of 800x800 in resolution.
 - The image should not contain any text outside of the visual content.
 - Avoid using your App Icon as the image (as it's already displayed by default).
+- Provide an image with no background or has a single color (avoid gradients).
+- Photos are allowed as well but will be displayed differently.
 
 ## FAQ
 ### Which Ads are presented when I use the default config
-There is a list of ads that
-##
+You'll find a list of all currently used ads in the example app.
 
 ## Special thanks to
 [tundsdev](https://twitter.com/tundsdev) for CachedImage implementation
