@@ -11,12 +11,11 @@ struct AdvertisementTextView : View {
     let advert: BillboardAd
     
     var body: some View {
-        VStack(spacing: 0) {
+        VStack(spacing: 6) {
             Text(advert.title)
                 .font(.system(.title2, design: .rounded, weight: .heavy))
             Text(advert.description)
                 .font(.system(.body, design: .rounded))
-                .padding(.top)
         }
         .multilineTextAlignment(.center)
         .foregroundColor(advert.text)

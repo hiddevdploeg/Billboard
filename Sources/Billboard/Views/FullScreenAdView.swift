@@ -16,7 +16,7 @@ struct FullScreenAdView : View {
             HStack {
                 Spacer()
                 AdvertisementTextView(advert: advert)
-                    
+                    .padding(.bottom, 24)
                 Spacer()
             }
         }

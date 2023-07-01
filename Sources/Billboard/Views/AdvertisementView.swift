@@ -68,6 +68,7 @@ public struct AdvertisementView<Content:View>: View {
         .sheet(isPresented: $showPaywall) { paywall() }
         .onAppear(perform: displayOverlay)
         .onDisappear(perform: dismissOverlay)
+        .statusBarHidden(true)
     }
     
     //MARK: - App Store Overlay

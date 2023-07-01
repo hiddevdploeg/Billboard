@@ -38,6 +38,8 @@ ContentView()
 
 ```
 
+**TIP**: When you're running a debug version of your app you can tap on the timer to show a dismiss button right away.
+
 ## Configuration
 
 Billboard let's you define some configuration to fit your needs better.
