@@ -50,10 +50,10 @@ struct BillboardAd : Codable, Identifiable, Equatable {
     
     
     /// For fullscreen media styling (should be true when the main image is a photo)
-    let isFullscreen: Bool
+    let fullscreen: Bool
     
     /// Allows blurred background when the main image is a PNG
-    let transparentBG : Bool
+    let transparent : Bool
     
     var background : Color {
         return Color(hex: self.backgroundColor)
@@ -66,5 +66,6 @@ struct BillboardAd : Codable, Identifiable, Equatable {
     var tint : Color {
         return Color(hex: self.tintColor)
     }
+    
 }
 
