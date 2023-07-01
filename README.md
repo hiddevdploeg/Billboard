@@ -99,8 +99,8 @@ Here's an example of how your source list could look like.
       "backgroundColor" : "344442",
       "textColor" : "EFDED7",
       "tintColor" : "EFDED7",
-      "isFullscreen": false,
-      "transparentBG": true
+      "fullscreen": false,
+      "transparent": true
     }
   ]
 }
@@ -113,20 +113,17 @@ You're welcome to submit your app to be part of this package. Each ad will be re
 
 **[You can submit your app here](https://forms.gle/nWV4dT3taBF62WXbA)**
 
-### App Requirements
+### Ad Requirements
 - **Apple ID of App**: The Apple ID is a 9- or 10-digit number found in your App Store URL or in App Store Connect.
 - **Name of App**: The name of the app you're promoting
 - **Title**: The headline of the advertisement (maximum 25 characters).
 - **Description**: The description of the advertisement (maximum 140 characters).
 - **Media**: The image used in your advertisement.
 
-
-**Media Guidelines**
+#### Media Guidelines
 - Image should be a minimum of 800x800 in resolution.
 - The image should not contain any text outside of the visual content.
 - Avoid using your App Icon as the image (as it's already displayed by default).
-
-
 
 ## Special thanks to
 [tundsdev](https://twitter.com/tundsdev) for CachedImage implementation
