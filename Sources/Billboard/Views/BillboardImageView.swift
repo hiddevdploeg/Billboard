@@ -15,24 +15,36 @@ struct BillboardImageView : View {
             switch phase {
             case .empty:
                 ZStack {
-                    advert.background
+                    plainBackground
                     ProgressView()
                         .tint(advert.tint)
                 }
+                .accessibilityHidden(true)
             case .success(let image):
                 image
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(maxWidth: 640)
                     .padding()
+                    .accessibilityLabel(Text(advert.name))
+                    .accessibilityAddTraits(.isImage)
             default:
                 ZStack {
-                    Color(hex: advert.backgroundColor)
+                    plainBackground
                     Image(systemName: "bolt.slash.fill")
                         .foregroundColor(advert.tint)
                 }
+                .accessibilityHidden(true)
+                
             }
         }
+    }
+    
+    private var plainBackground : some View {
+        Rectangle()
+            .fill(advert.background)
+            .aspectRatio(1.0, contentMode: .fill)
+            .frame(maxWidth: 640)
     }
 }
 
