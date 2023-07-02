@@ -1,0 +1,18 @@
+name: Pull Request
+
+concurrency:
+  group: ${{ github.head_ref }}
+  cancel-in-progress: true
+
+on:
+  pull_request:
+    branches: main
+
+jobs:
+  pr:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+      # The package only builds on iOS/iPadOS destinations
+      - name: Build the package
+        run: xcodebuild -scheme Billboard -destination 'generic/platform=iOS Simulator'
