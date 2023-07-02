@@ -5,6 +5,14 @@ Billboard is a module that enables the incorporation of advertisement highlights
 
 **These ads do NOT generate revenue or track anything**
 
+### In Short:
+- 🚫 No tracking/cookies
+- 📲 Customizable Ad overlay in SwiftUI
+- 🔧 Flexible configuration
+- 🎨 Use the default list of high-quality Ads or use your own source
+- 🌈 Various Ad types
+- 🎁 Ideal to get an ad-free premium tier.
+
 
 ## How to display an Ad
 
@@ -43,11 +51,12 @@ ContentView()
 
 **TIP**: When you're running a debug version of your app you can tap on the timer to show a dismiss button right away.
 
-![NowPlaying Copy 4@1x](https://github.com/hiddevdploeg/Billboard/assets/5016984/cbddccf6-0870-4446-9941-792151c090be)
+![Examples@2x](https://github.com/hiddevdploeg/Billboard/assets/5016984/37901294-82cb-4586-8134-38496dbb33cc)
+
 
 ## Configuration
 
-Billboard let's you define some configuration to fit your needs better.
+Billboard lets you define some configurations to fit your needs better.
 
 ``` swift
 public struct BillboardConfiguration {
@@ -115,7 +124,8 @@ Here's an example of how your source list could look like.
 
 ```
 
-![Ad Example@2x](https://github.com/hiddevdploeg/Billboard/assets/5016984/ac4a94b9-87b5-4a88-9fc9-bbbd62563c59)
+![Ad Example@2x](https://github.com/hiddevdploeg/Billboard/assets/5016984/0351d110-1f51-45ab-9d61-497d87653dfa)
+
 
 ## Ad Guidelines & Requirements
 Submit your app to be featured as an Ad for everyone using the Billboard package to display Advertisements.
@@ -140,7 +150,8 @@ Each ad will be reviewed before inclusion.
 ## Ad Types
 The media of an ad will be displayed covering the whole view when `BillboardAd.fullscreen` is set to `true`. This works great if the media is a photo instead of a visual. Please consider that the photo's subject must be in the center, which will ensure it's always visible.
 
-![AdTypes@2x](https://github.com/hiddevdploeg/Billboard/assets/5016984/4aed7d8f-5086-4159-ab02-92294b8ee6ca)
+![AdTypes@2x](https://github.com/hiddevdploeg/Billboard/assets/5016984/c7e2f96a-6368-4807-9c81-7dddd008d5ad)
+
 
 
 ## FAQ
@@ -155,3 +166,11 @@ This library is created by [Hidde van der Ploeg](https://hidde.design). Feel fre
 
 ## License
 Billboard is available under the MIT license.
+
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+    FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+    COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+    IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+    CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
