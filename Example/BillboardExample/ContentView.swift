@@ -21,6 +21,14 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             List {
+                if let advert = allAds.randomElement() {
+                    Section {
+                        SmallBannerAdView(advert:advert)
+                            .listRowInsets(.none)
+                            .listRowBackground(Color.clear)
+                    }
+                }
+                
                 Section(content: {
                     Text("This example shows some different ways of presenting an ad but also lets you explore all Ads that are available right now!")
                     Button {
