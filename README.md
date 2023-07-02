@@ -1,5 +1,6 @@
 
-<img width="1067" alt="Header Photo@2x" src="https://github.com/hiddevdploeg/Billboard/assets/5016984/869df117-9fd0-467a-97a8-6bd69bb98028">
+![Header Photo@2x](https://github.com/hiddevdploeg/Billboard/assets/5016984/6923bc15-26c9-4f19-b8d3-a5907911eac0)
+
 
 # Billboard
 Billboard is a module that enables the incorporation of advertisement highlights for applications created by independent developers. Its unique feature lies in its execution of ads without the use of tracking measures or unwanted cookies. This way, you can still be annoyed by advertisements without the nasty bits, and therefore you get a free "Remove Ads" selling point for your premium tier.
