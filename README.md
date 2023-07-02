@@ -137,8 +137,8 @@ Each ad will be reviewed before inclusion.
 - Provide an image with no background or has a single color (avoid gradients).
 - Photos are allowed as well but will be displayed differently.
 
-### Ad Types
-The media of an ad will be displayed covering the whole view when `BillboardAd.fullscreen` is set to `true`. This works great if the media is a photo instead of a visual. Please consider that the photo's subject must be in the center, as that will make sure it's always visible.
+## Ad Types
+The media of an ad will be displayed covering the whole view when `BillboardAd.fullscreen` is set to `true`. This works great if the media is a photo instead of a visual. Please consider that the photo's subject must be in the center, which will ensure it's always visible.
 
 ![AdTypes@2x](https://github.com/hiddevdploeg/Billboard/assets/5016984/4aed7d8f-5086-4159-ab02-92294b8ee6ca)
 
