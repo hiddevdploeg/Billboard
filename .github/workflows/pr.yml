@@ -1,0 +1,17 @@
+name: Pull Request
+
+concurrency:
+  group: ${{ github.head_ref }}
+  cancel-in-progress: true
+
+on:
+  pull_request:
+    branches: macos-latest
+
+jobs:
+  pr:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build the package
+        run: swift build
