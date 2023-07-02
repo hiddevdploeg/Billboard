@@ -130,12 +130,18 @@ Each ad will be reviewed before inclusion.
 - **Description**: The advertisement description (maximum 140 characters).
 - **Media**: The image used in your advertisement.
 
-#### Media Guidelines
+### Media Guidelines
 - Image should be a minimum of 800x800 in resolution.
 - The image should not contain any text outside of the visual content.
 - Avoid using your App Icon as the image (as it's already displayed by default).
 - Provide an image with no background or has a single color (avoid gradients).
 - Photos are allowed as well but will be displayed differently.
+
+### Ad Types
+The media of an ad will be displayed covering the whole view when `BillboardAd.fullscreen` is set to `true`. This works great if the media is a photo instead of a visual. Please consider that the photo's subject must be in the center, as that will make sure it's always visible.
+
+![AdTypes@2x](https://github.com/hiddevdploeg/Billboard/assets/5016984/4aed7d8f-5086-4159-ab02-92294b8ee6ca)
+
 
 ## FAQ
 ### Which Ads are presented when I use the default config
@@ -145,7 +151,7 @@ You'll find a list of all currently used ads in the example app.
 [tundsdev](https://twitter.com/tundsdev) for CachedImage implementation
 
 ## Authors
-This library is created by [Hidde van der Ploeg](https://hidde.design). Feel free to reach out on [Twitter](https://twitter.com/hiddevdploeg) or [Mastodon](https://mastodon.design/@hidde) if you have any questions or remarks.
+This library is created by [Hidde van der Ploeg](https://hidde.design). Feel free to reach out on [Twitter](https://twitter.com/hiddevdploeg) or [Mastodon](https://mastodon.design/@hidde).
 
 ## License
 Billboard is available under the MIT license.
