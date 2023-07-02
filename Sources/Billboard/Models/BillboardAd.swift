@@ -67,5 +67,37 @@ public struct BillboardAd : Codable, Identifiable, Equatable {
         return Color(hex: self.tintColor)
     }
     
+    
+    public var appIconURL : URL? {
+        return URL(string: "http://itunes.apple.com/lookup?id=\(appStoreID)")
+    }
+    
+    public func getAppIcon() async throws -> Data? {
+        guard let appIconURL else { return nil }
+        let session = URLSession(configuration: BillboardViewModel.networkConfiguration)
+        session.sessionDescription = "Fetching App Icon"
+        
+        do {
+            let (data, _) = try await session.data(from: appIconURL)
+            let decoder = JSONDecoder()
+            let response = try decoder.decode(AppIconResponse.self, from: data)
+            guard let artworkUrlStr = response.results.first?.artworkUrl100, let artworkURL = URL(string: artworkUrlStr) else { return nil }
+            
+            return try? Data(contentsOf: artworkURL)
+            
+        } catch {
+            return nil
+        }
+
+    }
 }
 
+public struct AppIconResponse : Codable {
+    let results: [AppIconResult]
+}
+
+
+public struct AppIconResult : Codable {
+    let artworkUrl100: String
+
+}
