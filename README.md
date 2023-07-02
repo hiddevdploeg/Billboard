@@ -117,6 +117,7 @@ Here's an example of how your source list could look like.
 
 ```
 
+![Ad Example@2x](https://github.com/hiddevdploeg/Billboard/assets/5016984/ac4a94b9-87b5-4a88-9fc9-bbbd62563c59)
 
 ## Ad Guidelines & Requirements
 Submit your app to be featured as an Ad for everyone using the Billboard package to display Advertisements.
