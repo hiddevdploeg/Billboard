@@ -1,7 +1,6 @@
 //
 //  BillboardBannerView.swift
 //
-//
 //  Created by Hidde van der Ploeg on 03/07/2023.
 //
 
@@ -91,9 +90,7 @@ public struct BillboardBannerView : View {
         .background(backgroundView)
         .overlay(RoundedRectangle(cornerRadius: 16, style: .continuous).stroke(Color.primary.opacity(0.1), lineWidth: 1))
         .task {
-            if let data = try? await advert.getAppIcon() {
-                appIcon = UIImage(data: data)
-            }
+            await fetchAppIcon()
         }
         .opacity(showAdvertisement ? 1 : 0)
         .scaleEffect(showAdvertisement ? 1 : 0)
@@ -101,9 +98,22 @@ public struct BillboardBannerView : View {
         .transaction {
             if reducedMotion { $0.animation = nil }
         }
+        .onChange(of: advert) { _ in
+            Task {
+                await fetchAppIcon()
+            }
+        }
         
     }
     
+    
+    private func fetchAppIcon() async {
+        if let data = try? await advert.getAppIcon() {
+            await MainActor.run {
+                appIcon = UIImage(data: data)
+            }
+        }
+    }
 
     var backgroundView : some View {
         RoundedRectangle(cornerRadius: 16, style: .continuous)
