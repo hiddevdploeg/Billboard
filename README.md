@@ -89,7 +89,7 @@ By default it comes with a shadow, which you can opt-out from by changing the `i
 List {
     if let advert {
         Section {
-            BillboardBannerView(advert: advert)
+            BillboardBannerView(advert: advert, includeShade: false)
                 .listRowBackground(Color.clear)
                 .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
         }
@@ -141,7 +141,8 @@ This also allows you to use your own source of ads that follow the `BillboardAdR
 let config = BillboardConfiguration(
     adsJSONURL: URL(string: "YOUR-OWN-SOURCE"),
     allowHaptics: false,
-    advertDuration: 30.0
+    advertDuration: 30.0,
+    excludedIDs: ["1234567890"]
 )
 
 ContentView()
