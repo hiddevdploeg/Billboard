@@ -15,6 +15,7 @@ struct DefaultAdView : View {
             HStack {
                 Spacer()
                 BillboardImageView(advert: advert)
+                
                 VStack {
                     Spacer()
                     BillboardTextView(advert: advert)

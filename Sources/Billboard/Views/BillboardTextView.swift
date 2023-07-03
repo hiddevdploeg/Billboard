@@ -12,15 +12,7 @@ struct BillboardTextView : View {
     
     var body: some View {
         VStack(spacing: 10) {
-            ZStack {
-                RoundedRectangle(cornerRadius: 4, style: .continuous)
-                    .fill(advert.tint.opacity(0.15))
-                Text("AD")
-                    .font(.system(size: 10, weight: .heavy, design: .rounded))
-                    .foregroundColor(advert.tint)
-                    .offset(x:0.5)
-            }
-            .frame(width: 26, height: 18)
+            BillboardAdInfoLabel(advert: advert)
             
             VStack(spacing: 6) {
                 Text(advert.title)
@@ -42,3 +34,5 @@ struct BillboardTextView_Previews: PreviewProvider {
         DefaultAdView(advert: BillboardSamples.sampleDefaultAd)
     }
 }
+
+
