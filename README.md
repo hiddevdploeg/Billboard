@@ -98,9 +98,9 @@ List {
     // Rest of the list...
 }
 
-![BillboardBannerExamples](https://github.com/hiddevdploeg/Billboard/assets/5016984/9137b720-8f27-4bc6-8216-2667f34aee95)
-
 ```
+
+![BillboardBannerExamples](https://github.com/hiddevdploeg/Billboard/assets/5016984/259603dd-3160-4552-a3da-990ecb33afd4)
 
 ## Configuration
 
