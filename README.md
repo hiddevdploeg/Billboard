@@ -14,6 +14,18 @@ Billboard is a module that enables the incorporation of advertisement highlights
 - 🎁 Ideal to get an ad-free premium tier.
 
 
+## Installation
+Ready to use on iOS 16+.
+
+1. In Xcode, select **Add Packages…** from the File menu.
+2. Enter `https://github.com/hiddevdploeg/Billboard` in the search field.
+3. Click **Add Package** (Set the Dependency Rule to Up to Next Major Version)
+4. After adding the package, you will be able to import Billboard in your project by using.
+
+```swift
+import Billboard
+```
+
 ## How to display an Ad
 
 Billboard provides an easy way to present an ad overlay on any SwiftUI `View`. Here's a simple example:
