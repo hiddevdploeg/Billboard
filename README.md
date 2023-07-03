@@ -89,7 +89,7 @@ By default it comes with a shadow, which you can opt-out from by changing the `i
 List {
     if let advert {
         Section {
-            BillboardBannerView(advert: advert, includeShade: false)
+            BillboardBannerView(advert: advert, includeShadow: false)
                 .listRowBackground(Color.clear)
                 .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
         }
