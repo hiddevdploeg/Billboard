@@ -1,5 +1,5 @@
 //
-//  SmallBannerAdView.swift
+//  BillboardBannerView.swift
 //  
 //
 //  Created by Hidde van der Ploeg on 03/07/2023.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public struct SmallBannerAdView : View {
+public struct BillboardBannerView : View {
     @Environment(\.accessibilityReduceMotion) private var reducedMotion
     @Environment(\.openURL) private var openURL
     
