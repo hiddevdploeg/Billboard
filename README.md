@@ -186,6 +186,8 @@ Each ad will be reviewed before inclusion.
 
 **[You can submit your app here](https://forms.gle/nWV4dT3taBF62WXbA)**
 
+Feel free to use the [Billboard template for Figma](https://www.figma.com/community/file/1257700620161188779) to tweak and preview the promo.
+
 ### Ad Requirements
 - **Apple ID of App**: The Apple ID is a 9- or 10-digit number found in your App Store URL or in App Store Connect.
 - **Name of App**: The name of the app you're promoting
