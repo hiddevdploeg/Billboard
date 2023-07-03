@@ -66,6 +66,39 @@ ContentView()
 ![Examples@2x](https://github.com/hiddevdploeg/Billboard/assets/5016984/37901294-82cb-4586-8134-38496dbb33cc)
 
 
+## BillboardBannerView
+If you don't fancy a fullscreen view but prefer a smaller banner to display within your content you can do that now too! Simple add a `BillboardBannerView` wherever you like. 
+
+```swift
+@State private var advert: BillboardAd? = nil
+ContentView()
+    .safeAreaInset(edge: .bottom) {
+        if let advert {
+            BillboardBannerView(advert: advert)
+                .padding()
+        }
+    }
+```
+
+By default it comes with a shadow, which you can opt-out from by changing the `includeShadow` value. Here's an example on how you could include a `BillboardBannerView` in your list:
+
+```swift
+@State private var advert: BillboardAd? = nil
+
+List {
+    if let advert {
+        Section {
+            BillboardBannerView(advert: advert)
+                .listRowBackground(Color.clear)
+                .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
+        }
+    }
+    
+    // Rest of the list...
+}
+
+```
+
 ## Configuration
 
 Billboard lets you define some configurations to fit your needs better.

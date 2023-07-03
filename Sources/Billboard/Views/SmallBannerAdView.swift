@@ -1,26 +1,28 @@
 //
-//  SmallBannerAdView.swift
-//  
+//  BillboardBannerView.swift
+//
 //
 //  Created by Hidde van der Ploeg on 03/07/2023.
 //
 
 import SwiftUI
 
-public struct SmallBannerAdView : View {
+public struct BillboardBannerView : View {
     @Environment(\.accessibilityReduceMotion) private var reducedMotion
     @Environment(\.openURL) private var openURL
     
     let advert : BillboardAd
     let config : BillboardConfiguration
+    let includeShadow : Bool
     
     @State private var canDismiss = false
     @State private var appIcon : UIImage? = nil
     @State private var showAdvertisement = true
     
-    public init(advert: BillboardAd, config: BillboardConfiguration = BillboardConfiguration()) {
+    public init(advert: BillboardAd, config: BillboardConfiguration = BillboardConfiguration(), includeShadow: Bool = true) {
         self.advert = advert
         self.config = config
+        self.includeShadow = includeShadow
     }
     
     public var body: some View {
@@ -86,9 +88,8 @@ public struct SmallBannerAdView : View {
             
         }
         .padding(10)
-        .background(advert.background)
-        .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-        
+        .background(backgroundView)
+        .overlay(RoundedRectangle(cornerRadius: 16, style: .continuous).stroke(Color.primary.opacity(0.1), lineWidth: 1))
         .task {
             if let data = try? await advert.getAppIcon() {
                 appIcon = UIImage(data: data)
@@ -102,14 +103,23 @@ public struct SmallBannerAdView : View {
         }
         
     }
+    
+
+    var backgroundView : some View {
+        RoundedRectangle(cornerRadius: 16, style: .continuous)
+            .fill(advert.background)
+            .shadow(color: includeShadow ? advert.background.opacity(0.5) : Color.clear,
+                    radius: 6,
+                    x: 0, y: 2)
+    }
 }
 
 
-struct SmallBannerAdView_Previews: PreviewProvider {
+struct BillboardBannerView_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
-            SmallBannerAdView(advert: BillboardSamples.sampleDefaultAd)
-            SmallBannerAdView(advert: BillboardSamples.sampleDefaultAd)
+            BillboardBannerView(advert: BillboardSamples.sampleDefaultAd)
+            BillboardBannerView(advert: BillboardSamples.sampleDefaultAd, includeShadow: false)
         }
         .padding()
         
