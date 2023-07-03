@@ -1,7 +1,7 @@
 ![Header Photo@2x](https://github.com/hiddevdploeg/Billboard/assets/5016984/7620bddc-c758-4a54-bac5-bd4326ffae2c)
 
 # Billboard
-Billboard is a module that enables the incorporation of advertisement highlights for applications created by independent developers. Its unique feature lies in its execution of ads without the use of tracking measures or unwanted cookies. This way, you can still be annoyed by advertisements without the nasty bits, and therefore you get a free "Remove Ads" selling point for your premium tier.
+Billboard is a module that enables the incorporation of advertisement highlights for applications created by independent developers. Its unique feature lies in its execution of ads without the use of tracking measures or unwanted cookies. This way, your user can still get annoyed by advertisements without the nasty bits, and therefore you get a free "Remove Ads" selling point for your premium tier.
 
 **These ads do NOT generate revenue or track anything**
 
