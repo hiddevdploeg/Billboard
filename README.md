@@ -196,7 +196,7 @@ Feel free to use the [Billboard template for Figma](https://www.figma.com/commun
 - **Media**: The image used in your advertisement.
 
 ### Media Guidelines
-- Image should be a minimum of 800x800 in resolution.
+- Image should be a minimum of 1280x1280 in resolution.
 - The image should not contain any text outside of the visual content.
 - Avoid using your App Icon as the image (as it's already displayed by default).
 - Provide an image with no background or has a single color (avoid gradients).
