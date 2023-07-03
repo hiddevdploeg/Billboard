@@ -67,7 +67,6 @@ ContentView()
 
 
 ## BillboardBannerView
-![BillboardBannerExamples](https://github.com/hiddevdploeg/Billboard/assets/5016984/9137b720-8f27-4bc6-8216-2667f34aee95)
 
 If you don't fancy a fullscreen view but prefer a smaller banner to display within your content you can do that now too! Simple add a `BillboardBannerView` wherever you like. 
 
@@ -98,6 +97,8 @@ List {
     
     // Rest of the list...
 }
+
+![BillboardBannerExamples](https://github.com/hiddevdploeg/Billboard/assets/5016984/9137b720-8f27-4bc6-8216-2667f34aee95)
 
 ```
 
