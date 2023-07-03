@@ -1,13 +1,13 @@
 //
-//  SmallBannerAdView.swift
-//  
+//  BillboardBannerView.swift
+//
 //
 //  Created by Hidde van der Ploeg on 03/07/2023.
 //
 
 import SwiftUI
 
-public struct SmallBannerAdView : View {
+public struct BillboardBannerView : View {
     @Environment(\.accessibilityReduceMotion) private var reducedMotion
     @Environment(\.openURL) private var openURL
     
@@ -115,11 +115,11 @@ public struct SmallBannerAdView : View {
 }
 
 
-struct SmallBannerAdView_Previews: PreviewProvider {
+struct BillboardBannerView_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
-            SmallBannerAdView(advert: BillboardSamples.sampleDefaultAd)
-            SmallBannerAdView(advert: BillboardSamples.sampleDefaultAd, includeShadow: false)
+            BillboardBannerView(advert: BillboardSamples.sampleDefaultAd)
+            BillboardBannerView(advert: BillboardSamples.sampleDefaultAd, includeShadow: false)
         }
         .padding()
         

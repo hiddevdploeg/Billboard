@@ -23,7 +23,7 @@ struct ContentView: View {
             List {
                 if let advert = allAds.randomElement() {
                     Section {
-                        SmallBannerAdView(advert: advert)
+                        BillboardBannerView(advert: advert)
                             .listRowBackground(Color.clear)
                             .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
                     }
@@ -66,11 +66,10 @@ struct ContentView: View {
         }
         .safeAreaInset(edge: .bottom, content: {
             if let advert = allAds.randomElement() {
-                SmallBannerAdView(advert: advert)
+                BillboardBannerView(advert: advert)
                     .padding()
                 
             }
-
         })
         .refreshable {
             Task {

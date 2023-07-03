@@ -66,6 +66,41 @@ ContentView()
 ![Examples@2x](https://github.com/hiddevdploeg/Billboard/assets/5016984/37901294-82cb-4586-8134-38496dbb33cc)
 
 
+## BillboardBannerView
+![BillboardBannerExamples](https://github.com/hiddevdploeg/Billboard/assets/5016984/9137b720-8f27-4bc6-8216-2667f34aee95)
+
+If you don't fancy a fullscreen view but prefer a smaller banner to display within your content you can do that now too! Simple add a `BillboardBannerView` wherever you like. 
+
+```swift
+@State private var advert: BillboardAd? = nil
+ContentView()
+    .safeAreaInset(edge: .bottom) {
+        if let advert {
+            BillboardBannerView(advert: advert)
+                .padding()
+        }
+    }
+```
+
+By default it comes with a shadow, which you can opt-out from by changing the `includeShadow` value. Here's an example on how you could include a `BillboardBannerView` in your list:
+
+```swift
+@State private var advert: BillboardAd? = nil
+
+List {
+    if let advert {
+        Section {
+            BillboardBannerView(advert: advert)
+                .listRowBackground(Color.clear)
+                .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
+        }
+    }
+    
+    // Rest of the list...
+}
+
+```
+
 ## Configuration
 
 Billboard lets you define some configurations to fit your needs better.
@@ -82,12 +117,16 @@ public struct BillboardConfiguration {
     /// The duration of the advertisement
     public let duration: TimeInterval
     
+    /// Provide a list of Apple ID's that you want to exclude from showing up (e.g. your own app)
+    public let excludedIDs : [String]
+    
     public init(adsJSONURL: URL? = URL(string:"https://billboard-source.vercel.app/ads.json"),
                 allowHaptics: Bool = true,
-                advertDuration: TimeInterval = 15.0) {
+                advertDuration: TimeInterval = 15.0, excludedIDs: [String] = []) {
         self.adsJSONURL = adsJSONURL
         self.allowHaptics = allowHaptics
         self.duration = advertDuration
+        self.excludedIDs = excludedIDs
     }
 }
 ```
