@@ -70,7 +70,6 @@ struct ContentView: View {
                     .padding()
                 
             }
-
         })
         .refreshable {
             Task {

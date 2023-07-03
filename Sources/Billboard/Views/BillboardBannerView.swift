@@ -1,6 +1,5 @@
 //
 //  BillboardBannerView.swift
-//  
 //
 //  Created by Hidde van der Ploeg on 03/07/2023.
 //

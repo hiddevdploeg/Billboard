@@ -28,14 +28,14 @@ public final class BillboardViewModel : ObservableObject {
     public func showAdvertisement() async {
         guard let url = configuration.adsJSONURL else { return }
 
-        if let newAd = try? await BillboardViewModel.fetchRandomAd(from: url) {
+        if let newAd = try? await BillboardViewModel.fetchRandomAd(from: url, excludedIDs: configuration.excludedIDs) {
             await MainActor.run {
                 advertisement = newAd
             }
         }
     }
     
-    public static func fetchRandomAd(from url: URL) async throws -> BillboardAd? {
+    public static func fetchRandomAd(from url: URL, excludedIDs: [String] = []) async throws -> BillboardAd? {
         let session = URLSession(configuration: BillboardViewModel.networkConfiguration)
         session.sessionDescription = "Fetching Billboard Ad"
         
@@ -43,7 +43,8 @@ public final class BillboardViewModel : ObservableObject {
             let (data, _) = try await session.data(from: url)
             let decoder = JSONDecoder()
             let response = try decoder.decode(BillboardAdResponse.self, from: data)
-            let adToShow = response.ads.randomElement()
+            let filteredAds = response.ads.filter({ !excludedIDs.contains($0.appStoreID) })
+            let adToShow = filteredAds.randomElement()
             return adToShow
             
         } catch DecodingError.keyNotFound(let key, let context) {
