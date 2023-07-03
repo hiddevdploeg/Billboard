@@ -20,7 +20,7 @@ public struct BillboardAd : Codable, Identifiable, Equatable {
     }
     
     /// Should be the Apple ID of App that's connected to the Ad (e.g. 1596487035)
-    let appStoreID : String
+    public let appStoreID : String
     
     /// Name of ad (e.g. NowPlaying)
     public let name : String
@@ -36,7 +36,8 @@ public struct BillboardAd : Codable, Identifiable, Equatable {
     
     /// App Store Link based on `appStoreID`
     public var appStoreLink : URL {
-        return URL(string: "https://apps.apple.com/app/apple-store/id\(id)")!
+        let appName = self.name.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+        return URL(string: "https://apps.apple.com/us/app/\(appName)/id\(appStoreID)")!
     }
 
     /// Main Background color in HEX format
