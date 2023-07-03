@@ -126,11 +126,11 @@ public struct BillboardBannerView : View {
 }
 
 
-struct SmallBannerAdView_Previews: PreviewProvider {
+struct BillboardBannerView_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
-            SmallBannerAdView(advert: BillboardSamples.sampleDefaultAd)
-            SmallBannerAdView(advert: BillboardSamples.sampleDefaultAd, includeShadow: false)
+            BillboardBannerView(advert: BillboardSamples.sampleDefaultAd)
+            BillboardBannerView(advert: BillboardSamples.sampleDefaultAd, includeShadow: false)
         }
         .padding()
         
