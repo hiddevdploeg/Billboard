@@ -44,12 +44,12 @@ public struct BillboardBannerView : View {
                         
                         VStack(alignment: .leading) {
                             Text(advert.title)
-                                .font(.system(.footnote, design: .rounded, weight: .bold))
+                                .font(.compatibleSystem(.footnote, design: .rounded, weight: .bold))
                                 .foregroundColor(advert.text)
                                 .lineLimit(1)
                                 .minimumScaleFactor(0.75)
                             Text(advert.name)
-                                .font(.system(.caption2, design: .rounded, weight: .medium).smallCaps())
+                                .font(.compatibleSystem(.caption2, design: .rounded, weight: .medium).smallCaps())
                                 .foregroundColor(advert.tint)
                                 .opacity(0.8)
                         }
@@ -72,7 +72,7 @@ public struct BillboardBannerView : View {
                 } label: {
                     Label("Dismiss advertisement", systemImage: "xmark.circle.fill")
                         .labelStyle(.iconOnly)
-                        .font(.system(.title2, design: .rounded, weight: .bold))
+                        .font(.compatibleSystem(.title2, design: .rounded, weight: .bold))
                         .symbolRenderingMode(.hierarchical)
                         .imageScale(.large)
                         .controlSize(.large)

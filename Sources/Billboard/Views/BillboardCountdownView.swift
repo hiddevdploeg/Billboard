@@ -28,7 +28,7 @@ struct BillboardCountdownView : View {
                 .stroke(advert.tint, style: StrokeStyle(lineWidth: 2, lineCap: .round, lineJoin: .round))
 
             Text("\(seconds)")
-                .font(.system(.caption, design: .rounded, weight: .bold)).monospacedDigit()
+                .font(.compatibleSystem(.caption, design: .rounded, weight: .bold)).monospacedDigit()
                 .rotationEffect(.degrees(90))
                 .minimumScaleFactor(0.5)
                 .onReceive(timer) { _ in
