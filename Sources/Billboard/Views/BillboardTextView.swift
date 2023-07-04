@@ -16,7 +16,7 @@ struct BillboardTextView : View {
             
             VStack(spacing: 6) {
                 Text(advert.title)
-                    .font(.system(.title2, design: .rounded, weight: .heavy))
+                    .font(.compatibleSystem(.title2, design: .rounded, weight: .heavy))
                 Text(advert.description)
                     .font(.system(.body, design: .rounded))
             }

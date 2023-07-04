@@ -16,7 +16,7 @@ struct BillboardDismissButton : View {
         } label: {
             Label("Dismiss advertisement", systemImage: "xmark.circle.fill")
                 .labelStyle(.iconOnly)
-                .font(.system(.title2, design: .rounded, weight: .bold))
+                .font(.compatibleSystem(.title2, design: .rounded, weight: .bold))
                 .symbolRenderingMode(.hierarchical)
                 .imageScale(.large)
                 .controlSize(.large)
