@@ -68,6 +68,13 @@ public struct BillboardView<Content:View>: View {
         .sheet(isPresented: $showPaywall) { paywall() }
         .onAppear(perform: displayOverlay)
         .onDisappear(perform: dismissOverlay)
+        .onChange(of: showPaywall) { newValue in
+            if newValue {
+                dismissOverlay()
+            } else {
+                displayOverlay()
+            }
+        }
         .statusBarHidden(true)
     }
     
