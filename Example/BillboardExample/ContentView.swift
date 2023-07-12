@@ -62,7 +62,7 @@ struct ContentView: View {
                     }
                 }
             }
-            .font(.system(.body, design: .rounded, weight: .medium))
+            .font(.compatibleSystem(.body, design: .rounded, weight: .medium))
         }
         .safeAreaInset(edge: .bottom, content: {
             if let advert = allAds.randomElement() {

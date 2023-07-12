@@ -11,28 +11,38 @@ struct DefaultAdView : View {
     let advert : BillboardAd
     
     var body: some View {
-        ViewThatFits(in: .horizontal) {
-            HStack {
-                Spacer()
-                BillboardImageView(advert: advert)
+        if #available(iOS 16, *) {
+            ViewThatFits(in: .horizontal) {
+                HStack {
+                    Spacer()
+                    BillboardImageView(advert: advert)
+                    
+                    VStack {
+                        Spacer()
+                        BillboardTextView(advert: advert)
+                        Spacer()
+                    }
+                    Spacer()
+                }
                 
                 VStack {
                     Spacer()
+                    BillboardImageView(advert: advert)
                     BillboardTextView(advert: advert)
                     Spacer()
                 }
-                Spacer()
+                
             }
-            
+            .background(backgroundView)
+        } else {
             VStack {
                 Spacer()
                 BillboardImageView(advert: advert)
                 BillboardTextView(advert: advert)
                 Spacer()
             }
-            
+            .background(backgroundView)
         }
-        .background(backgroundView)
     }
     
     
