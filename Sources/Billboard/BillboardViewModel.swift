@@ -11,7 +11,7 @@ public final class BillboardViewModel : ObservableObject {
     
     let configuration: BillboardConfiguration
     
-    @Published var advertisement : BillboardAd? = nil
+    @Published public var advertisement : BillboardAd? = nil
     
     public init(configuration: BillboardConfiguration = BillboardConfiguration()) {
         self.configuration = configuration
