@@ -13,15 +13,17 @@ public struct BillboardBannerView : View {
     let advert : BillboardAd
     let config : BillboardConfiguration
     let includeShadow : Bool
+    let hideDismissButtonAndTimer : Bool
     
     @State private var canDismiss = false
     @State private var appIcon : UIImage? = nil
     @State private var showAdvertisement = true
     
-    public init(advert: BillboardAd, config: BillboardConfiguration = BillboardConfiguration(), includeShadow: Bool = true) {
+    public init(advert: BillboardAd, config: BillboardConfiguration = BillboardConfiguration(), includeShadow: Bool = true, hideDismissButtonAndTimer: Bool = false) {
         self.advert = advert
         self.config = config
         self.includeShadow = includeShadow
+        self.hideDismissButtonAndTimer = hideDismissButtonAndTimer
     }
     
     public var body: some View {
@@ -59,32 +61,33 @@ public struct BillboardBannerView : View {
             .buttonStyle(.plain)
             Spacer()
             
-            if canDismiss {
-                Button {
-                    if config.allowHaptics {
-                        haptics(.light)
+            if !hideDismissButtonAndTimer {
+                if canDismiss {
+                    Button {
+                        if config.allowHaptics {
+                            haptics(.light)
+                        }
+                        
+                        withAnimation(.spring()) {
+                            showAdvertisement = false
+                        }
+                        
+                    } label: {
+                        Label("Dismiss advertisement", systemImage: "xmark.circle.fill")
+                            .labelStyle(.iconOnly)
+                            .font(.compatibleSystem(.title2, design: .rounded, weight: .bold))
+                            .symbolRenderingMode(.hierarchical)
+                            .imageScale(.large)
+                            .controlSize(.large)
                     }
-                    
-                    withAnimation(.spring()) {
-                        showAdvertisement = false
-                    }
-                    
-                } label: {
-                    Label("Dismiss advertisement", systemImage: "xmark.circle.fill")
-                        .labelStyle(.iconOnly)
-                        .font(.compatibleSystem(.title2, design: .rounded, weight: .bold))
-                        .symbolRenderingMode(.hierarchical)
-                        .imageScale(.large)
-                        .controlSize(.large)
+                    .tint(advert.tint)
+                } else {
+                    BillboardCountdownView(advert:advert,
+                                           totalDuration: config.duration,
+                                           canDismiss: $canDismiss)
+                    .padding(.trailing, 2)
                 }
-                .tint(advert.tint)
-            } else {
-                BillboardCountdownView(advert:advert,
-                                       totalDuration: config.duration,
-                                       canDismiss: $canDismiss)
-                .padding(.trailing, 2)
             }
-            
         }
         .padding(10)
         .background(backgroundView)
