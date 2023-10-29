@@ -3,15 +3,15 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		05891B322AA156F900766C4E /* Billboard in Frameworks */ = {isa = PBXBuildFile; productRef = 05891B312AA156F900766C4E /* Billboard */; };
 		802C223B2A507FD600059D21 /* BillboardExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802C223A2A507FD600059D21 /* BillboardExampleApp.swift */; };
 		802C223D2A507FD600059D21 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802C223C2A507FD600059D21 /* ContentView.swift */; };
 		802C223F2A507FD700059D21 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 802C223E2A507FD700059D21 /* Assets.xcassets */; };
 		802C22422A507FD700059D21 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 802C22412A507FD700059D21 /* Preview Assets.xcassets */; };
-		802C22502A508DC000059D21 /* Billboard in Frameworks */ = {isa = PBXBuildFile; productRef = 802C224F2A508DC000059D21 /* Billboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,7 +27,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				802C22502A508DC000059D21 /* Billboard in Frameworks */,
+				05891B322AA156F900766C4E /* Billboard in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -86,7 +86,7 @@
 			);
 			name = BillboardExample;
 			packageProductDependencies = (
-				802C224F2A508DC000059D21 /* Billboard */,
+				05891B312AA156F900766C4E /* Billboard */,
 			);
 			productName = BillboardExample;
 			productReference = 802C22372A507FD600059D21 /* BillboardExample.app */;
@@ -117,7 +117,7 @@
 			);
 			mainGroup = 802C222E2A507FD600059D21;
 			packageReferences = (
-				802C224E2A508DC000059D21 /* XCRemoteSwiftPackageReference "Billboard" */,
+				05891B302AA156F900766C4E /* XCLocalSwiftPackageReference ".." */,
 			);
 			productRefGroup = 802C22382A507FD600059D21 /* Products */;
 			projectDirPath = "";
@@ -346,21 +346,16 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCRemoteSwiftPackageReference section */
-		802C224E2A508DC000059D21 /* XCRemoteSwiftPackageReference "Billboard" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/hiddevdploeg/Billboard.git";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
+/* Begin XCLocalSwiftPackageReference section */
+		05891B302AA156F900766C4E /* XCLocalSwiftPackageReference ".." */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ..;
 		};
-/* End XCRemoteSwiftPackageReference section */
+/* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		802C224F2A508DC000059D21 /* Billboard */ = {
+		05891B312AA156F900766C4E /* Billboard */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 802C224E2A508DC000059D21 /* XCRemoteSwiftPackageReference "Billboard" */;
 			productName = Billboard;
 		};
 /* End XCSwiftPackageProductDependency section */
