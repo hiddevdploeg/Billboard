@@ -35,8 +35,8 @@ public struct BillboardAd : Codable, Identifiable, Equatable {
     public let media : URL
     
     /// App Store Link based on `appStoreID`
-    public var appStoreLink : URL {
-        return URL(string: "https://apps.apple.com/app/id\(appStoreID)")!
+    public var appStoreLink : URL? {
+        return URL(string: "https://apps.apple.com/app/id\(appStoreID)")
     }
 
     /// Main Background color in HEX format

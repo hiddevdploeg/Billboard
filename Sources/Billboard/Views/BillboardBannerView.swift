@@ -30,7 +30,9 @@ public struct BillboardBannerView : View {
         
         HStack(spacing: 10) {
             Button {
-                openURL(advert.appStoreLink)
+                if let url = advert.appStoreLink {
+                    openURL(url)
+                }
                 canDismiss = true
             } label: {
                 HStack(spacing: 10) {
