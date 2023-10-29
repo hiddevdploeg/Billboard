@@ -100,6 +100,8 @@ List {
 
 ```
 
+You can also hide the dismiss button to have a persistent banner, by adding `hideDismissButtonAndTimer: true` to your `BillboardBannerView`.
+
 ![BillboardBannerExamples](https://github.com/hiddevdploeg/Billboard/assets/5016984/259603dd-3160-4552-a3da-990ecb33afd4)
 
 ## Configuration
@@ -201,6 +203,7 @@ Feel free to use the [Billboard template for Figma](https://www.figma.com/commun
 - Avoid using your App Icon as the image (as it's already displayed by default).
 - Provide an image with no background or has a single color (avoid gradients).
 - Photos are allowed as well but will be displayed differently.
+- Try and submit an evergreen image that represents your app, show it's good practice to avoid showing UI that gets outdated fast. 
 
 ## Ad Types
 The media of an ad will be displayed covering the whole view when `BillboardAd.fullscreen` is set to `true`. This works great if the media is a photo instead of a visual. Please consider that the photo's subject must be in the center, which will ensure it's always visible.
