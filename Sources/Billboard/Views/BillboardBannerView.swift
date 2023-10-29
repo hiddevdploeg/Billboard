@@ -32,8 +32,8 @@ public struct BillboardBannerView : View {
             Button {
                 if let url = advert.appStoreLink {
                     openURL(url)
+                    canDismiss = true
                 }
-                canDismiss = true
             } label: {
                 HStack(spacing: 10) {
                     if let appIcon {
@@ -120,12 +120,17 @@ public struct BillboardBannerView : View {
         }
     }
 
+    @ViewBuilder
     var backgroundView : some View {
-        RoundedRectangle(cornerRadius: 16, style: .continuous)
-            .fill(advert.background)
-            .shadow(color: includeShadow ? advert.background.opacity(0.5) : Color.clear,
-                    radius: 6,
-                    x: 0, y: 2)
+        if #available(iOS 16.0, *) {
+            RoundedRectangle(cornerRadius: 16, style: .continuous)
+                .fill(advert.background.gradient)
+                .shadow(color: includeShadow ? advert.background.opacity(0.5) : Color.clear, radius: 6, x: 0, y: 2)
+        } else {
+            RoundedRectangle(cornerRadius: 16, style: .continuous)
+                .fill(advert.background)
+                .shadow(color: includeShadow ? advert.background.opacity(0.5) : Color.clear, radius: 6, x: 0, y: 2)
+        }
     }
 }
 

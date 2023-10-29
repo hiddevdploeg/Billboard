@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import OSLog
 
 public final class BillboardViewModel : ObservableObject {
     
@@ -35,6 +36,42 @@ public final class BillboardViewModel : ObservableObject {
         }
     }
     
+    public static func fetchRandomAd(excludedIDs: [String] = []) async throws -> BillboardAd? {
+        guard  let url = BillboardConfiguration().adsJSONURL else {
+            return nil
+        }
+        
+        let session = URLSession(configuration: BillboardViewModel.networkConfiguration)
+        session.sessionDescription = "Fetching Billboard Ad"
+        
+        do {
+            let (data, _) = try await session.data(from: url)
+            let decoder = JSONDecoder()
+            let response = try decoder.decode(BillboardAdResponse.self, from: data)
+            let filteredAds = response.ads.filter({ !excludedIDs.contains($0.appStoreID) })
+            let adToShow = filteredAds.randomElement()
+            
+            if let adToShow {
+                Logger.billboard.debug("✨ Billboard Ad presented: \(adToShow.name)")
+            }
+            
+            return adToShow
+            
+        } catch DecodingError.keyNotFound(let key, let context) {
+            Logger.billboard.error("❌ Failed to decode Billboard Ad due to missing key '\(key.stringValue)' not found – \(context.debugDescription)")
+        } catch DecodingError.typeMismatch(_, let context) {
+            Logger.billboard.error("❌ Failed to decode Billboard Ad due to type mismatch – \(context.debugDescription)")
+        } catch DecodingError.valueNotFound(let type, let context) {
+            Logger.billboard.error("❌ Failed to decode Billboard Ad due to missing \(type) value – \(context.debugDescription)")
+        } catch DecodingError.dataCorrupted(_) {
+            Logger.billboard.error("❌ Failed to decode Billboard Ad because it appears to be invalid JSON")
+        } catch {
+            Logger.billboard.error("❌ Failed to decode Billboard Ad: \(error.localizedDescription)")
+        }
+        
+        return nil
+    }
+    
     public static func fetchRandomAd(from url: URL, excludedIDs: [String] = []) async throws -> BillboardAd? {
         let session = URLSession(configuration: BillboardViewModel.networkConfiguration)
         session.sessionDescription = "Fetching Billboard Ad"
@@ -45,18 +82,23 @@ public final class BillboardViewModel : ObservableObject {
             let response = try decoder.decode(BillboardAdResponse.self, from: data)
             let filteredAds = response.ads.filter({ !excludedIDs.contains($0.appStoreID) })
             let adToShow = filteredAds.randomElement()
+            
+            if let adToShow {
+                Logger.billboard.debug("✨ Billboard Ad presented: \(adToShow.name)")
+            }
+            
             return adToShow
             
         } catch DecodingError.keyNotFound(let key, let context) {
-            print("❌ Failed to decode due to missing key '\(key.stringValue)' not found – \(context.debugDescription)")
+            Logger.billboard.error("❌ Failed to decode Billboard Ad due to missing key '\(key.stringValue)' not found – \(context.debugDescription)")
         } catch DecodingError.typeMismatch(_, let context) {
-            print("❌ Failed to decode from bundle due to type mismatch – \(context.debugDescription)")
+            Logger.billboard.error("❌ Failed to decode Billboard Ad due to type mismatch – \(context.debugDescription)")
         } catch DecodingError.valueNotFound(let type, let context) {
-            print("❌ Failed to decode from bundle due to missing \(type) value – \(context.debugDescription)")
+            Logger.billboard.error("❌ Failed to decode Billboard Ad due to missing \(type) value – \(context.debugDescription)")
         } catch DecodingError.dataCorrupted(_) {
-            print("❌ Failed to decode from bundle because it appears to be invalid JSON")
+            Logger.billboard.error("❌ Failed to decode Billboard Ad because it appears to be invalid JSON")
         } catch {
-            print("❌ Failed to decode  from bundle: \(error.localizedDescription)")
+            Logger.billboard.error("❌ Failed to decode Billboard Ad: \(error.localizedDescription)")
         }
         
         return nil
@@ -73,15 +115,15 @@ public final class BillboardViewModel : ObservableObject {
             return response.ads
             
         } catch DecodingError.keyNotFound(let key, let context) {
-            print("❌ Failed to decode due to missing key '\(key.stringValue)' not found – \(context.debugDescription)")
+            Logger.billboard.error("❌ Failed to decode Billboard Ad due to missing key '\(key.stringValue)' not found – \(context.debugDescription)")
         } catch DecodingError.typeMismatch(_, let context) {
-            print("❌ Failed to decode from bundle due to type mismatch – \(context.debugDescription)")
+            Logger.billboard.error("❌ Failed to decode Billboard Ad due to type mismatch – \(context.debugDescription)")
         } catch DecodingError.valueNotFound(let type, let context) {
-            print("❌ Failed to decode from bundle due to missing \(type) value – \(context.debugDescription)")
+            Logger.billboard.error("❌ Failed to decode Billboard Ad due to missing \(type) value – \(context.debugDescription)")
         } catch DecodingError.dataCorrupted(_) {
-            print("❌ Failed to decode from bundle because it appears to be invalid JSON")
+            Logger.billboard.error("❌ Failed to decode Billboard Ad because it appears to be invalid JSON")
         } catch {
-            print("❌ Failed to decode  from bundle: \(error.localizedDescription)")
+            Logger.billboard.error("❌ Failed to decode Billboard Ad: \(error.localizedDescription)")
         }
         
         return []
