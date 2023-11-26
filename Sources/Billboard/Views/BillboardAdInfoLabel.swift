@@ -20,6 +20,7 @@ struct BillboardAdInfoLabel: View {
                 .offset(x:0.5)
         }
         .frame(width: 22, height: 14)
+        .accessibilityLabel(Text("Advertisement"))
     }
 }
 
