@@ -28,7 +28,7 @@ public struct BillboardBannerView : View {
     
     public var body: some View {
         
-        HStack(spacing: 10) {
+        ZStack(alignment: .trailing) {
             Button {
                 if let url = advert.appStoreLink {
                     openURL(url)
@@ -41,9 +41,10 @@ public struct BillboardBannerView : View {
                             .resizable()
                             .frame(width: 60, height: 60)
                             .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+                            .accessibilityHidden(true)
                     }
+                    
                     VStack(alignment: .leading, spacing: 4) {
-                        
                         BillboardAdInfoLabel(advert: advert)
                         
                         VStack(alignment: .leading) {
@@ -58,42 +59,47 @@ public struct BillboardBannerView : View {
                                 .opacity(0.8)
                         }
                     }
+                    .accessibilityHidden(true)
+                    Spacer()
                 }
+                .padding(.trailing, hideDismissButtonAndTimer ? 0: 40)
+                .contentShape(Rectangle())
             }
             .buttonStyle(.plain)
             Spacer()
             
-            if !hideDismissButtonAndTimer {
-                if canDismiss {
-                    Button {
-                        if config.allowHaptics {
-                            haptics(.light)
-                        }
-                        
-                        withAnimation(.spring()) {
+            Group {
+                if !hideDismissButtonAndTimer {
+                    if canDismiss {
+                        Button {
+                            if config.allowHaptics {
+                                haptics(.light)
+                            }
                             showAdvertisement = false
+                        } label: {
+                            Label("Dismiss advertisement", systemImage: "xmark.circle.fill")
+                                .labelStyle(.iconOnly)
+                                .font(.compatibleSystem(.title2, design: .rounded, weight: .bold))
+                                .symbolRenderingMode(.hierarchical)
+                                .imageScale(.large)
+                                .controlSize(.large)
                         }
-                        
-                    } label: {
-                        Label("Dismiss advertisement", systemImage: "xmark.circle.fill")
-                            .labelStyle(.iconOnly)
-                            .font(.compatibleSystem(.title2, design: .rounded, weight: .bold))
-                            .symbolRenderingMode(.hierarchical)
-                            .imageScale(.large)
-                            .controlSize(.large)
+                        .tint(advert.tint)
+                    } else {
+                        BillboardCountdownView(advert:advert,
+                                               totalDuration: config.duration,
+                                               canDismiss: $canDismiss)
+                        .padding(.trailing, 2)
                     }
-                    .tint(advert.tint)
-                } else {
-                    BillboardCountdownView(advert:advert,
-                                           totalDuration: config.duration,
-                                           canDismiss: $canDismiss)
-                    .padding(.trailing, 2)
                 }
             }
+            .padding(.trailing, 9)
         }
+        .accessibilityLabel(Text("\(advert.name), \(advert.title)"))
         .padding(10)
         .background(backgroundView)
         .overlay(RoundedRectangle(cornerRadius: 16, style: .continuous).stroke(Color.primary.opacity(0.1), lineWidth: 1))
+        .animation(.spring(), value: showAdvertisement)
         .task {
             await fetchAppIcon()
         }
@@ -139,7 +145,7 @@ struct BillboardBannerView_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
             BillboardBannerView(advert: BillboardSamples.sampleDefaultAd)
-            BillboardBannerView(advert: BillboardSamples.sampleDefaultAd, includeShadow: false)
+            BillboardBannerView(advert: BillboardSamples.sampleDefaultAd, hideDismissButtonAndTimer: true)
         }
         .padding()
         
