@@ -23,6 +23,60 @@ public struct BillboardView<Content:View>: View {
     }
     
     public var body: some View {
+        #if os(visionOS)
+        NavigationStack {
+            ZStack(alignment: .top) {
+                advert.background.ignoresSafeArea()
+                
+                if advert.fullscreen {
+                    FullScreenAdView(advert: advert)
+                } else {
+                    DefaultAdView(advert: advert)
+                }
+            }
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    // TimerView
+                    if canDismiss {
+                        BillboardDismissButton()
+                            .onAppear {
+                                #if os(iOS)
+                                if config.allowHaptics {
+                                    haptics(.light)
+                                }
+                                #endif
+                            }
+                    } else {
+                        BillboardCountdownView(advert:advert,
+                                               totalDuration: config.duration,
+                                               canDismiss: $canDismiss)
+                    }
+                }
+                
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        showPaywall.toggle()
+                    } label: {
+                        Text("Remove Ads")
+                            .font(.system(.footnote, design: .rounded))
+                            .bold()
+                    }
+                    .buttonStyle(.bordered)
+                    .controlSize(.small)
+                }
+            }
+        }
+        .sheet(isPresented: $showPaywall) { paywall() }
+        .onAppear(perform: displayOverlay)
+        .onDisappear(perform: dismissOverlay)
+        .onChange(of: showPaywall) { newValue in
+            if newValue {
+                dismissOverlay()
+            } else {
+                displayOverlay()
+            }
+        }
+        #else
         ZStack(alignment: .top) {
             advert.background.ignoresSafeArea()
             
@@ -76,6 +130,8 @@ public struct BillboardView<Content:View>: View {
             }
         }
         .statusBarHidden(true)
+        #endif
+      
     }
     
     //MARK: - App Store Overlay
