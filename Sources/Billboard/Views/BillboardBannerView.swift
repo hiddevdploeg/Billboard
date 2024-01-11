@@ -72,9 +72,11 @@ public struct BillboardBannerView : View {
                 if !hideDismissButtonAndTimer {
                     if canDismiss {
                         Button {
+                            #if os(iOS)
                             if config.allowHaptics {
                                 haptics(.light)
                             }
+                            #endif
                             showAdvertisement = false
                         } label: {
                             Label("Dismiss advertisement", systemImage: "xmark.circle.fill")
