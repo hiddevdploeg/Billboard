@@ -14,12 +14,17 @@ struct BillboardDismissButton : View {
         Button {
             dismiss()
         } label: {
+            #if os(visionOS)
+            Label("Dismiss advertisement", systemImage: "xmark")
+                .labelStyle(.iconOnly)
+            #else
             Label("Dismiss advertisement", systemImage: "xmark.circle.fill")
                 .labelStyle(.iconOnly)
                 .font(.compatibleSystem(.title2, design: .rounded, weight: .bold))
                 .symbolRenderingMode(.hierarchical)
                 .imageScale(.large)
                 .controlSize(.large)
+            #endif
         }
     }
 }
