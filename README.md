@@ -62,8 +62,7 @@ ContentView()
 ```
 
 **TIP**: When you're running a debug version of your app you can tap on the timer to show a dismiss button right away.
-
-![Examples@2x](https://github.com/hiddevdploeg/Billboard/assets/5016984/37901294-82cb-4586-8134-38496dbb33cc)
+![Examples@2x](https://github.com/hiddevdploeg/Billboard/assets/5016984/b9b9fdc4-5da0-47d7-8ae2-3c22c874620b)
 
 
 ## BillboardBannerView
