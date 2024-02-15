@@ -8,13 +8,16 @@
 import Foundation
 import SwiftUI
 
+public struct BillboardAd : Codable, Identifiable, Hashable {
 
-public struct BillboardAd : Codable, Identifiable, Equatable {
-    
     public static func == (lhs: BillboardAd, rhs: BillboardAd) -> Bool {
         lhs.id == rhs.id
     }
-    
+
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+
     public var id : String {
         return "\(name)+\(appStoreID)"
     }
