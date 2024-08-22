@@ -21,13 +21,13 @@ public struct AdvertisementModifier<V: View>: ViewModifier {
     let config : BillboardConfiguration
     let paywall: () -> V
     
-    @ObservedObject private var monitor : BillboardViewModel
-    
+    @StateObject private var monitor : BillboardViewModel
+
     init(showAd: Binding<Bool>, config: BillboardConfiguration, paywall: @escaping () -> V) {
         self.showAd = showAd
         self.config = config
         self.paywall = paywall
-        self.monitor = BillboardViewModel(configuration: config)
+        self._monitor = StateObject(wrappedValue: BillboardViewModel(configuration: config))
     }
     
     @State private var advertisement: BillboardAd? = nil
