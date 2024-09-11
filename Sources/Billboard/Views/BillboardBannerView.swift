@@ -100,7 +100,6 @@ public struct BillboardBannerView : View {
         .accessibilityLabel(Text("\(advert.name), \(advert.title)"))
         .padding(10)
         .background(backgroundView)
-        .overlay(RoundedRectangle(cornerRadius: 16, style: .continuous).stroke(Color.primary.opacity(0.1), lineWidth: 1))
         .animation(.spring(), value: showAdvertisement)
         .task {
             await fetchAppIcon()
@@ -131,13 +130,22 @@ public struct BillboardBannerView : View {
     @ViewBuilder
     var backgroundView : some View {
         if #available(iOS 16.0, *) {
-            RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .fill(advert.background.gradient)
-                .shadow(color: includeShadow ? advert.background.opacity(0.5) : Color.clear, radius: 6, x: 0, y: 2)
+            ZStack {
+                RoundedRectangle(cornerRadius: 16, style: .continuous)
+                    .fill(advert.background.gradient)
+                RoundedRectangle(cornerRadius: 16, style: .continuous)
+                    .stroke(Color.primary.opacity(0.1), lineWidth: 1)
+            }
+            .shadow(color: includeShadow ? advert.background.opacity(0.5) : Color.clear, radius: 6, x: 0, y: 2)
+            
         } else {
-            RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .fill(advert.background)
-                .shadow(color: includeShadow ? advert.background.opacity(0.5) : Color.clear, radius: 6, x: 0, y: 2)
+            ZStack {
+                RoundedRectangle(cornerRadius: 16, style: .continuous)
+                    .fill(advert.background)
+                RoundedRectangle(cornerRadius: 16, style: .continuous)
+                    .stroke(Color.primary.opacity(0.1), lineWidth: 1)
+            }
+            .shadow(color: includeShadow ? advert.background.opacity(0.5) : Color.clear, radius: 6, x: 0, y: 2)
         }
     }
 }
