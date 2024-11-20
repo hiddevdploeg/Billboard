@@ -131,7 +131,7 @@ public struct BillboardBannerView : View {
 
     @ViewBuilder
     var backgroundView : some View {
-        if #available(iOS 16.0, *) {
+        if #available(iOS 16.0, tvOS 16.0, *) {
             ZStack {
                 RoundedRectangle(cornerRadius: 16, style: .continuous)
                     .fill(advert.background.gradient)

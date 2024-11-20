@@ -11,7 +11,7 @@ struct DefaultAdView : View {
     let advert : BillboardAd
     
     var body: some View {
-        if #available(iOS 16, *) {
+        if #available(iOS 16, tvOS 17, *) {
             ViewThatFits(in: .horizontal) {
                 HStack {
                     Spacer()
