@@ -95,8 +95,9 @@ public struct BillboardView<Content:View>: View {
                         .bold()
                 }
                 .buttonStyle(.bordered)
+                #if !os(tvOS)
                 .controlSize(.small)
-                
+                #endif
                 Spacer()
                 
                 // TimerView
@@ -120,6 +121,7 @@ public struct BillboardView<Content:View>: View {
             .padding()
         }
         .sheet(isPresented: $showPaywall) { paywall() }
+#if !os(tvOS)
         .onAppear(perform: displayOverlay)
         .onDisappear(perform: dismissOverlay)
         .onChange(of: showPaywall) { newValue in
@@ -129,18 +131,21 @@ public struct BillboardView<Content:View>: View {
                 displayOverlay()
             }
         }
+
         .statusBarHidden(true)
+#endif
         #endif
       
     }
     
     //MARK: - App Store Overlay
-    
+#if !os(tvOS)
     private var storeOverlay : SKOverlay {
         let config = SKOverlay.AppConfiguration(appIdentifier: advert.appStoreID, position: .bottom)
         let overlay = SKOverlay(configuration: config)
         return overlay
     }
+    
     
     private let scene = UIApplication.shared.connectedScenes
         .compactMap({ scene -> UIWindow? in
@@ -164,6 +169,6 @@ public struct BillboardView<Content:View>: View {
         }
         #endif
     }
-    
+#endif
 }
 

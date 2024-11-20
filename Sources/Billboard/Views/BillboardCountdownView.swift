@@ -43,7 +43,7 @@ struct BillboardCountdownView : View {
                     }
                 }
             #else
-            if #available(iOS 17.0, *) {
+            if #available(iOS 17.0, tvOS 17.0, *) {
                 Text("\(seconds, specifier: "%.0f")")
                     .font(.compatibleSystem(.caption, design: .rounded, weight: .heavy)).monospacedDigit()
                     .rotationEffect(.degrees(90))

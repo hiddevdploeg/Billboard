@@ -23,7 +23,9 @@ struct BillboardDismissButton : View {
                 .font(.compatibleSystem(.title2, design: .rounded, weight: .bold))
                 .symbolRenderingMode(.hierarchical)
                 .imageScale(.large)
+#if !os(tvOS)
                 .controlSize(.large)
+            #endif
             #endif
         }
     }
