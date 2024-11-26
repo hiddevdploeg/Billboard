@@ -82,7 +82,7 @@ public struct BillboardBannerView : View {
                 if !hideDismissButtonAndTimer {
                     if canDismiss {
                         Button {
-                            #if os(iOS)
+                        #if os(iOS)
                             if config.allowHaptics {
                                 haptics(.light)
                             }
@@ -90,27 +90,24 @@ public struct BillboardBannerView : View {
                             showAdvertisement = false
                         } label: {
 #if os(visionOS)
-        Label("Dismiss advertisement", systemImage: "xmark")
-            .labelStyle(.iconOnly)
-            .font(.system(.title3, design: .rounded, weight: .bold))
-            .symbolRenderingMode(.hierarchical)
+                            Label("Dismiss advertisement", systemImage: "xmark")
+                                .labelStyle(.iconOnly)
+                                .font(.system(.title3, design: .rounded, weight: .bold))
+                                .symbolRenderingMode(.hierarchical)
 #else
-        Label("Dismiss advertisement", systemImage: "xmark.circle.fill")
-            .labelStyle(.iconOnly)
-            .font(.system(.title2, design: .rounded, weight: .bold))
-            .symbolRenderingMode(.hierarchical)
-            .imageScale(.large)
+                            Label("Dismiss advertisement", systemImage: "xmark.circle.fill")
+                                .labelStyle(.iconOnly)
+                                .font(.system(.title2, design: .rounded, weight: .bold))
+                                .symbolRenderingMode(.hierarchical)
+                                .imageScale(.large)
 #endif
                         }
 #if !os(tvOS)
                         .controlSize(.large)
 #endif
-#if os(visionOS)
-                        
-                        #else
+#if !os(visionOS)
                         .tint(advert.tint)
-
-                        #endif
+#endif
                     } else {
                         BillboardCountdownView(advert:advert,
                                                totalDuration: config.duration,
@@ -155,7 +152,7 @@ public struct BillboardBannerView : View {
             loadingNewIcon = false
         }
     }
-
+    
     @ViewBuilder
     var backgroundView : some View {
         RoundedRectangle(cornerRadius: 16, style: .continuous)
