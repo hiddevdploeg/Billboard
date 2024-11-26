@@ -36,13 +36,20 @@ public struct BillboardBannerView : View {
                 }
             } label: {
                 HStack(spacing: 10) {
-                    if let appIcon {
-                        Image(uiImage: appIcon)
-                            .resizable()
-                            .frame(width: 60, height: 60)
-                            .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
-                            .accessibilityHidden(true)
+                    ZStack {
+                        if let appIcon {
+                            Image(uiImage: appIcon)
+                                .resizable()
+                        } else {
+                            advert.tint
+                            ProgressView()
+                                .foregroundStyle(advert.text)
+                        }
                     }
+                    .frame(width: 60, height: 60)
+                    .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+                    .accessibilityHidden(true)
+                    
                     
                     VStack(alignment: .leading, spacing: 4) {
                         BillboardAdInfoLabel(advert: advert)

@@ -85,7 +85,7 @@ public struct BillboardView<Content:View>: View {
             } else {
                 DefaultAdView(advert: advert)
             }
-#if !os(tvOS)a
+#if !os(tvOS)
             HStack {
                 Button {
                     showPaywall.toggle()
