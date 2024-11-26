@@ -5,6 +5,7 @@
 //
 
 import SwiftUI
+import OSLog
 
 public struct BillboardBannerView : View {
     @Environment(\.accessibilityReduceMotion) private var reducedMotion
@@ -18,6 +19,7 @@ public struct BillboardBannerView : View {
     @State private var canDismiss = false
     @State private var appIcon : UIImage? = nil
     @State private var showAdvertisement = true
+    @State private var loadingNewIcon = true
     
     public init(advert: BillboardAd, config: BillboardConfiguration = BillboardConfiguration(), includeShadow: Bool = true, hideDismissButtonAndTimer: Bool = false) {
         self.advert = advert
@@ -37,7 +39,7 @@ public struct BillboardBannerView : View {
             } label: {
                 HStack(spacing: 10) {
                     ZStack {
-                        if let appIcon {
+                        if let appIcon, !loadingNewIcon {
                             Image(uiImage: appIcon)
                                 .resizable()
                         } else {
@@ -49,6 +51,8 @@ public struct BillboardBannerView : View {
                     .frame(width: 60, height: 60)
                     .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
                     .accessibilityHidden(true)
+                    .transition(.blurReplace)
+                    .animation(.default, value: loadingNewIcon)
                     
                     
                     VStack(alignment: .leading, spacing: 4) {
@@ -119,38 +123,41 @@ public struct BillboardBannerView : View {
         .transaction {
             if reducedMotion { $0.animation = nil }
         }
-        .onChange(of: advert, { Task { await fetchAppIcon() } })   
+        .onChange(of: advert, {
+            Task { await fetchAppIcon() }
+        })
     }
     
     
     private func fetchAppIcon() async {
-        if let data = try? await advert.getAppIcon() {
-            await MainActor.run {
-                appIcon = UIImage(data: data)
+        do {
+            loadingNewIcon = true
+            let imageData = try await advert.getAppIcon()
+            if let imageData {
+                await MainActor.run {
+                    appIcon = UIImage(data: imageData)
+                    loadingNewIcon = false
+                }
             }
+        } catch {
+            Logger.billboard.error("\(error.localizedDescription)")
+            loadingNewIcon = false
         }
     }
 
     @ViewBuilder
     var backgroundView : some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .fill(advert.background.gradient)
-            RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .stroke(Color.primary.opacity(0.1), lineWidth: 1)
-        }
-        .shadow(color: includeShadow ? advert.background.opacity(0.5) : Color.clear, radius: 6, x: 0, y: 2)
+        RoundedRectangle(cornerRadius: 16, style: .continuous)
+            .fill(advert.background.gradient)
+            .stroke(Color.primary.opacity(0.1), lineWidth: 1)
+            .shadow(color: includeShadow ? advert.background.opacity(0.5) : Color.clear, radius: 6, x: 0, y: 2)
     }
 }
 
-
-struct BillboardBannerView_Previews: PreviewProvider {
-    static var previews: some View {
-        VStack {
-            BillboardBannerView(advert: BillboardSamples.sampleDefaultAd)
-            BillboardBannerView(advert: BillboardSamples.sampleDefaultAd, hideDismissButtonAndTimer: true)
-        }
-        .padding()
-        
+#Preview {
+    VStack {
+        BillboardBannerView(advert: BillboardSamples.sampleDefaultAd)
+        BillboardBannerView(advert: BillboardSamples.sampleDefaultAd, hideDismissButtonAndTimer: true)
     }
+    .padding()
 }
