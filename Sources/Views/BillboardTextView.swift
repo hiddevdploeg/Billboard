@@ -42,10 +42,6 @@ struct BillboardTextView : View {
     }
 }
 
-struct BillboardTextView_Previews: PreviewProvider {
-    static var previews: some View {
-        DefaultAdView(advert: BillboardSamples.sampleDefaultAd)
-    }
+#Preview {
+    BillboardTextView(advert: BillboardSamples.sampleDefaultAd)
 }
-
-

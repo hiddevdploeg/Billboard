@@ -198,3 +198,13 @@ public struct BillboardView<Content:View>: View {
 #endif
 }
 
+
+#Preview {
+    BillboardView(advert: BillboardSamples.sampleDefaultAd) {
+        VStack {
+            Spacer()
+            BillboardBannerView(advert: BillboardSamples.sampleDefaultAd)
+            Spacer()
+        }
+    }
+}

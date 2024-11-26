@@ -77,7 +77,6 @@ public struct BillboardBannerView : View {
                 .contentShape(Rectangle())
             }
             .buttonStyle(.plain)
-            Spacer()
             
             Group {
                 if !hideDismissButtonAndTimer {
@@ -90,16 +89,28 @@ public struct BillboardBannerView : View {
                             #endif
                             showAdvertisement = false
                         } label: {
-                            Label("Dismiss advertisement", systemImage: "xmark.circle.fill")
-                                .labelStyle(.iconOnly)
-                                .font(.system(.title2, design: .rounded, weight: .bold))
-                                .symbolRenderingMode(.hierarchical)
-                                .imageScale(.large)
+#if os(visionOS)
+        Label("Dismiss advertisement", systemImage: "xmark")
+            .labelStyle(.iconOnly)
+            .font(.system(.title3, design: .rounded, weight: .bold))
+            .symbolRenderingMode(.hierarchical)
+#else
+        Label("Dismiss advertisement", systemImage: "xmark.circle.fill")
+            .labelStyle(.iconOnly)
+            .font(.system(.title2, design: .rounded, weight: .bold))
+            .symbolRenderingMode(.hierarchical)
+            .imageScale(.large)
+#endif
                         }
 #if !os(tvOS)
                         .controlSize(.large)
 #endif
+#if os(visionOS)
+                        
+                        #else
                         .tint(advert.tint)
+
+                        #endif
                     } else {
                         BillboardCountdownView(advert:advert,
                                                totalDuration: config.duration,

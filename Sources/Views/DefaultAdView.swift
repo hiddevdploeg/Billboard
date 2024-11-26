@@ -32,7 +32,9 @@ struct DefaultAdView : View {
             }
             
         }
-        .background(backgroundView)
+        .background {
+            backgroundView
+        }
     }
     
     
@@ -45,6 +47,9 @@ struct DefaultAdView : View {
                     ZStack {
                         advert.background
                             .ignoresSafeArea()
+#if os(visionOS)
+    .opacity(0.75)
+#endif
                         image
                             .resizable()
                             .opacity(0.1)
@@ -55,8 +60,9 @@ struct DefaultAdView : View {
                     
                     
                 default:
-                    Color(hex: advert.backgroundColor)
+                    advert.background
                         .ignoresSafeArea()
+                    
                 }
             })
         }
