@@ -8,11 +8,11 @@
 import Foundation
 
 
-class ImageCache: @unchecked Sendable {
+public class ImageCache: @unchecked Sendable {
     
     typealias CacheType = NSCache<NSString, NSData>
     
-    static let shared = ImageCache()
+    public static let shared = ImageCache()
     
     private init() {}
     
@@ -23,11 +23,11 @@ class ImageCache: @unchecked Sendable {
         return cache
     }()
     
-    func object(forkey key: NSString) -> Data? {
+    public func object(forkey key: NSString) -> Data? {
         cache.object(forKey: key) as? Data
     }
     
-    func set(object: NSData, forKey key: NSString) {
+    public func set(object: NSData, forKey key: NSString) {
         cache.setObject(object, forKey: key)
     }
 }

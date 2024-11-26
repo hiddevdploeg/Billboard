@@ -6,15 +6,15 @@
 //
 
 import Foundation
-
-final class CachedImageManager: ObservableObject {
+import Observation
+@Observable public final class CachedImageManager {
     
-    @Published private(set) var currentState: CurrentState?
+    private(set) var currentState: CachedImageState?
     
     private let imageRetriver = ImageRetriver()
     
     @MainActor
-    func load(_ imgUrl: String,
+    public func load(_ imgUrl: String,
               cache: ImageCache = .shared) async {
         
         self.currentState = .loading
@@ -35,26 +35,3 @@ final class CachedImageManager: ObservableObject {
     }
 }
 
-extension CachedImageManager {
-    enum CurrentState {
-        case loading
-        case failed(error: Error)
-        case success(data: Data)
-    }
-}
-
-extension CachedImageManager.CurrentState: Equatable {
-    static func == (lhs: CachedImageManager.CurrentState,
-                    rhs: CachedImageManager.CurrentState) -> Bool {
-        switch (lhs, rhs) {
-        case (.loading, .loading):
-            return true
-        case (let .failed(lhsError), let .failed(rhsError)):
-            return lhsError.localizedDescription == rhsError.localizedDescription
-        case (let .success(lhsData), let .success(rhsData)):
-            return lhsData == rhsData
-        default:
-            return false
-        }
-    }
-}

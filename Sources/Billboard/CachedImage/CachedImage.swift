@@ -7,15 +7,16 @@
 
 import SwiftUI
 
-struct CachedImage<Content: View>: View {
+public struct CachedImage<Content: View>: View {
     
-    @StateObject private var manager = CachedImageManager()
-    let url: String
-    let animation: Animation?
-    let transition: AnyTransition
-    let content: (AsyncImagePhase) -> Content
+    @State private var manager = CachedImageManager()
     
-    init(url: String,
+    public let url: String
+    public let animation: Animation?
+    public let transition: AnyTransition
+    public let content: (AsyncImagePhase) -> Content
+    
+    public init(url: String,
          animation: Animation? = nil,
          transition: AnyTransition = .identity,
          @ViewBuilder content: @escaping (AsyncImagePhase) -> Content) {
