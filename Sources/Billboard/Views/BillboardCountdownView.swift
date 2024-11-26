@@ -29,9 +29,9 @@ struct BillboardCountdownView : View {
                 .trim(from: 0, to: timerProgress)
                 .stroke(advert.tint, style: StrokeStyle(lineWidth: 2, lineCap: .round, lineJoin: .round))
             
-            #if os(visionOS)
+
             Text("\(seconds, specifier: "%.0f")")
-                .font(.compatibleSystem(.caption, design: .rounded, weight: .heavy)).monospacedDigit()
+                .font(.system(.caption, design: .rounded, weight: .heavy).monospacedDigit())
                 .rotationEffect(.degrees(90))
                 .minimumScaleFactor(0.5)
                 .animation(.default, value: seconds)
@@ -42,32 +42,6 @@ struct BillboardCountdownView : View {
                         seconds -= 1
                     }
                 }
-            #else
-            if #available(iOS 17.0, tvOS 17.0, *) {
-                Text("\(seconds, specifier: "%.0f")")
-                    .font(.compatibleSystem(.caption, design: .rounded, weight: .heavy)).monospacedDigit()
-                    .rotationEffect(.degrees(90))
-                    .minimumScaleFactor(0.5)
-                    .animation(.default, value: seconds)
-                    .transition(.identity)
-                    .contentTransition(.numericText(value: seconds))
-                    .onReceive(timer) { _ in
-                        if seconds > 0 {
-                            seconds -= 1
-                        }
-                    }
-            } else {
-                Text("\(seconds, specifier: "%.0f")")
-                    .font(.compatibleSystem(.caption, design: .rounded, weight: .bold)).monospacedDigit()
-                    .rotationEffect(.degrees(90))
-                    .minimumScaleFactor(0.5)
-                    .onReceive(timer) { _ in
-                        if seconds > 0 {
-                            seconds -= 1
-                        }
-                    }
-            }
-            #endif
         }
         #if os(visionOS)
         .foregroundStyle(.primary)
@@ -82,11 +56,11 @@ struct BillboardCountdownView : View {
                 timerProgress = 1.0
             }
         }
-        .onChange(of: seconds) { _ in
+        .onChange(of: seconds, {
             if seconds < 1 {
                 canDismiss = true
             }
-        }
+        })
         .onTapGesture {
             #if DEBUG
             canDismiss = true

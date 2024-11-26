@@ -23,7 +23,7 @@ public struct BillboardView<Content:View>: View {
     }
     
     public var body: some View {
-        #if os(visionOS)
+#if os(visionOS)
         NavigationStack {
             ZStack(alignment: .top) {
                 advert.background.ignoresSafeArea()
@@ -40,11 +40,11 @@ public struct BillboardView<Content:View>: View {
                     if canDismiss {
                         BillboardDismissButton()
                             .onAppear {
-                                #if os(iOS)
+#if os(iOS)
                                 if config.allowHaptics {
                                     haptics(.light)
                                 }
-                                #endif
+#endif
                             }
                     } else {
                         BillboardCountdownView(advert:advert,
@@ -69,14 +69,14 @@ public struct BillboardView<Content:View>: View {
         .sheet(isPresented: $showPaywall) { paywall() }
         .onAppear(perform: displayOverlay)
         .onDisappear(perform: dismissOverlay)
-        .onChange(of: showPaywall) { newValue in
-            if newValue {
+        .onChange(of: showPaywall, {
+            if showPaywall {
                 dismissOverlay()
             } else {
                 displayOverlay()
             }
-        }
-        #else
+        })
+#else
         ZStack(alignment: .top) {
             advert.background.ignoresSafeArea()
             
@@ -85,7 +85,7 @@ public struct BillboardView<Content:View>: View {
             } else {
                 DefaultAdView(advert: advert)
             }
-            
+#if !os(tvOS)a
             HStack {
                 Button {
                     showPaywall.toggle()
@@ -95,20 +95,18 @@ public struct BillboardView<Content:View>: View {
                         .bold()
                 }
                 .buttonStyle(.bordered)
-                #if !os(tvOS)
                 .controlSize(.small)
-                #endif
                 Spacer()
                 
                 // TimerView
                 if canDismiss {
                     BillboardDismissButton()
                         .onAppear {
-                            #if os(iOS)
+#if os(iOS)
                             if config.allowHaptics {
                                 haptics(.light)
                             }
-                            #endif
+#endif
                         }
                 } else {
                     BillboardCountdownView(advert:advert,
@@ -119,23 +117,51 @@ public struct BillboardView<Content:View>: View {
             .frame(height: 40)
             .tint(advert.tint)
             .padding()
+#else
+            HStack {
+                // TimerView
+                if canDismiss {
+                    BillboardDismissButton()
+                } else {
+                    BillboardCountdownView(advert:advert,
+                                           totalDuration: config.duration,
+                                           canDismiss: $canDismiss)
+                }
+                
+                Spacer()
+                
+                
+                Button {
+                    showPaywall.toggle()
+                } label: {
+                    Text("Remove Ads")
+                        .font(.system(.footnote, design: .rounded))
+                        .bold()
+                }
+                .buttonStyle(.bordered)
+            }
+            .frame(height: 40)
+            .tint(advert.tint)
+            .padding()
+#endif
         }
+        .background(advert.background.ignoresSafeArea())
         .sheet(isPresented: $showPaywall) { paywall() }
 #if !os(tvOS)
         .onAppear(perform: displayOverlay)
         .onDisappear(perform: dismissOverlay)
-        .onChange(of: showPaywall) { newValue in
-            if newValue {
+        .onChange(of: showPaywall, {
+            if showPaywall {
                 dismissOverlay()
             } else {
                 displayOverlay()
             }
-        }
-
+        })
+        
         .statusBarHidden(true)
 #endif
-        #endif
-      
+#endif
+        
     }
     
     //MARK: - App Store Overlay
@@ -163,11 +189,11 @@ public struct BillboardView<Content:View>: View {
         guard let scene else { return }
         storeOverlay.present(in: scene)
         
-        #if os(iOS)
+#if os(iOS)
         if config.allowHaptics {
             haptics(.heavy)
         }
-        #endif
+#endif
     }
 #endif
 }

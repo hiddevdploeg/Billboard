@@ -7,7 +7,8 @@
 
 import Foundation
 
-class ImageCache {
+
+class ImageCache: @unchecked Sendable {
     
     typealias CacheType = NSCache<NSString, NSData>
     

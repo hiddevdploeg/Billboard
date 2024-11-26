@@ -49,12 +49,12 @@ public struct BillboardBannerView : View {
                         
                         VStack(alignment: .leading) {
                             Text(advert.title)
-                                .font(.compatibleSystem(.footnote, design: .rounded, weight: .bold))
+                                .font(.system(.footnote, design: .rounded, weight: .bold))
                                 .foregroundColor(advert.text)
                                 .lineLimit(1)
                                 .minimumScaleFactor(0.75)
                             Text(advert.name)
-                                .font(.compatibleSystem(.caption2, design: .rounded, weight: .medium).smallCaps())
+                                .font(.system(.caption2, design: .rounded, weight: .medium).smallCaps())
                                 .foregroundColor(advert.tint)
                                 .opacity(0.8)
                         }
@@ -81,13 +81,13 @@ public struct BillboardBannerView : View {
                         } label: {
                             Label("Dismiss advertisement", systemImage: "xmark.circle.fill")
                                 .labelStyle(.iconOnly)
-                                .font(.compatibleSystem(.title2, design: .rounded, weight: .bold))
+                                .font(.system(.title2, design: .rounded, weight: .bold))
                                 .symbolRenderingMode(.hierarchical)
                                 .imageScale(.large)
-#if !os(tvOS)
-                                .controlSize(.large)
-                            #endif
                         }
+#if !os(tvOS)
+                        .controlSize(.large)
+#endif
                         .tint(advert.tint)
                     } else {
                         BillboardCountdownView(advert:advert,
@@ -112,12 +112,7 @@ public struct BillboardBannerView : View {
         .transaction {
             if reducedMotion { $0.animation = nil }
         }
-        .onChange(of: advert) { _ in
-            Task {
-                await fetchAppIcon()
-            }
-        }
-        
+        .onChange(of: advert, { Task { await fetchAppIcon() } })   
     }
     
     
@@ -131,24 +126,13 @@ public struct BillboardBannerView : View {
 
     @ViewBuilder
     var backgroundView : some View {
-        if #available(iOS 16.0, tvOS 16.0, *) {
-            ZStack {
-                RoundedRectangle(cornerRadius: 16, style: .continuous)
-                    .fill(advert.background.gradient)
-                RoundedRectangle(cornerRadius: 16, style: .continuous)
-                    .stroke(Color.primary.opacity(0.1), lineWidth: 1)
-            }
-            .shadow(color: includeShadow ? advert.background.opacity(0.5) : Color.clear, radius: 6, x: 0, y: 2)
-            
-        } else {
-            ZStack {
-                RoundedRectangle(cornerRadius: 16, style: .continuous)
-                    .fill(advert.background)
-                RoundedRectangle(cornerRadius: 16, style: .continuous)
-                    .stroke(Color.primary.opacity(0.1), lineWidth: 1)
-            }
-            .shadow(color: includeShadow ? advert.background.opacity(0.5) : Color.clear, radius: 6, x: 0, y: 2)
+        ZStack {
+            RoundedRectangle(cornerRadius: 16, style: .continuous)
+                .fill(advert.background.gradient)
+            RoundedRectangle(cornerRadius: 16, style: .continuous)
+                .stroke(Color.primary.opacity(0.1), lineWidth: 1)
         }
+        .shadow(color: includeShadow ? advert.background.opacity(0.5) : Color.clear, radius: 6, x: 0, y: 2)
     }
 }
 
