@@ -11,37 +11,29 @@ struct DefaultAdView : View {
     let advert : BillboardAd
     
     var body: some View {
-        if #available(iOS 16, tvOS 17, *) {
-            ViewThatFits(in: .horizontal) {
-                HStack {
-                    Spacer()
-                    BillboardImageView(advert: advert)
-                    
-                    VStack {
-                        Spacer()
-                        BillboardTextView(advert: advert)
-                        Spacer()
-                    }
-                    Spacer()
-                }
+        ViewThatFits(in: .horizontal) {
+            HStack {
+                Spacer()
+                BillboardImageView(advert: advert)
                 
                 VStack {
                     Spacer()
-                    BillboardImageView(advert: advert)
                     BillboardTextView(advert: advert)
                     Spacer()
                 }
-                
+                Spacer()
             }
-            .background(backgroundView)
-        } else {
+            
             VStack {
                 Spacer()
                 BillboardImageView(advert: advert)
                 BillboardTextView(advert: advert)
                 Spacer()
             }
-            .background(backgroundView)
+            
+        }
+        .background {
+            backgroundView
         }
     }
     
@@ -55,6 +47,9 @@ struct DefaultAdView : View {
                     ZStack {
                         advert.background
                             .ignoresSafeArea()
+#if os(visionOS)
+    .opacity(0.75)
+#endif
                         image
                             .resizable()
                             .opacity(0.1)
@@ -65,8 +60,9 @@ struct DefaultAdView : View {
                     
                     
                 default:
-                    Color(hex: advert.backgroundColor)
+                    advert.background
                         .ignoresSafeArea()
+                    
                 }
             })
         }
@@ -75,9 +71,6 @@ struct DefaultAdView : View {
     
 }
 
-struct DefaultAdView_Previews: PreviewProvider {
-    static var previews: some View {
-        DefaultAdView(advert: BillboardSamples.sampleDefaultAd)
-    }
+#Preview {
+    DefaultAdView(advert: BillboardSamples.sampleDefaultAd)
 }
-

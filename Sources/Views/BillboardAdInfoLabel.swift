@@ -11,6 +11,19 @@ struct BillboardAdInfoLabel: View {
     let advert : BillboardAd
     
     var body: some View {
+        #if os(tvOS)
+        Text("AD")
+            .font(.system(.caption, design: .rounded, weight: .heavy).smallCaps())
+            .fixedSize(horizontal: true, vertical: false)
+            .foregroundColor(advert.tint)
+            .padding(.vertical, 4)
+            .padding(.horizontal, 8)
+            .accessibilityLabel(Text("Advertisement"))
+            .background {
+                RoundedRectangle(cornerRadius: 4)
+                    .fill(advert.tint.quinary)
+            }
+        #else
         ZStack {
             RoundedRectangle(cornerRadius: 4, style: .continuous)
                 .fill(advert.tint.opacity(0.15))
@@ -21,6 +34,7 @@ struct BillboardAdInfoLabel: View {
         }
         .frame(width: 22, height: 14)
         .accessibilityLabel(Text("Advertisement"))
+        #endif
     }
 }
 

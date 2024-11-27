@@ -35,13 +35,13 @@ public struct AdvertisementModifier<V: View>: ViewModifier {
     
     public func body(content: Content) -> some View {
         content
-            .onChange(of: showAd.wrappedValue) { show in
-                if show {
+            .onChange(of: showAd.wrappedValue, {
+                if showAd.wrappedValue {
                     Task {
                         await monitor.showAdvertisement()
                     }
                 }
-            }
+            })
             .fullScreenCover(item: $monitor.advertisement, onDismiss: { showAd.wrappedValue = false }) { advert in
                 BillboardView(advert: advert, config: config, paywall: { paywall() })
             }
