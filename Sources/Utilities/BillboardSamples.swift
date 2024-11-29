@@ -14,6 +14,7 @@ public struct BillboardSamples {
                                                            name: "NowPlaying",
                                                            title: "Learn everything about any song",
                                                            description: "A music companion app that lets you discover the stories behind and song, album or artist.",
+                                                           category: .music,
                                                            media: URL(string: "https://pub-378e0dd96b5343108a04317ebddebb4e.r2.dev/nowplaying.png")!,
                                                            backgroundColor: "344442",
                                                            textColor: "EFDED7",

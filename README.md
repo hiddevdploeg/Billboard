@@ -15,7 +15,7 @@ Billboard is a module that enables the incorporation of advertisement highlights
 
 
 ## Installation
-Ready to use on iOS 15+.
+Ready to use on iOS 16+, tvOS 17+ and visionOS 1+.
 
 1. In Xcode, select **Add Packages…** from the File menu.
 2. Enter `https://github.com/hiddevdploeg/Billboard` in the search field.
@@ -171,7 +171,8 @@ Here's an example of how your source list could look like.
       "textColor" : "EFDED7",
       "tintColor" : "EFDED7",
       "fullscreen": false,
-      "transparent": true
+      "transparent": true,
+      "adCategory": "music"
     }
   ]
 }

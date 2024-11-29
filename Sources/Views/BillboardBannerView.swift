@@ -5,6 +5,7 @@
 //
 
 import SwiftUI
+import OSLog
 
 public struct BillboardBannerView : View {
     @Environment(\.accessibilityReduceMotion) private var reducedMotion
@@ -18,6 +19,7 @@ public struct BillboardBannerView : View {
     @State private var canDismiss = false
     @State private var appIcon : UIImage? = nil
     @State private var showAdvertisement = true
+    @State private var loadingNewIcon = true
     
     public init(advert: BillboardAd, config: BillboardConfiguration = BillboardConfiguration(), includeShadow: Bool = true, hideDismissButtonAndTimer: Bool = false) {
         self.advert = advert
@@ -36,25 +38,42 @@ public struct BillboardBannerView : View {
                 }
             } label: {
                 HStack(spacing: 10) {
-                    if let appIcon {
-                        Image(uiImage: appIcon)
-                            .resizable()
-                            .frame(width: 60, height: 60)
-                            .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
-                            .accessibilityHidden(true)
+                    ZStack {
+                        if let appIcon, !loadingNewIcon {
+                            Image(uiImage: appIcon)
+                                .resizable()
+                        } else {
+                            advert.tint
+                            ProgressView()
+                                .foregroundStyle(advert.text)
+                        }
                     }
+#if os(tvOS)
+                    .frame(width: 120, height: 120)
+                    .clipShape(RoundedRectangle(cornerRadius: 26, style: .continuous))
+                    #else
+                    .frame(width: 60, height: 60)
+                    .clipShape(RoundedRectangle(cornerRadius: 13, style: .continuous))
+                    #endif
+                    .accessibilityHidden(true)
+                    .transition(.blurReplace)
+                    .animation(.default, value: loadingNewIcon)
+#if os(tvOS)
+                    .padding(.leading)
+                    #endif
+                    
                     
                     VStack(alignment: .leading, spacing: 4) {
                         BillboardAdInfoLabel(advert: advert)
                         
                         VStack(alignment: .leading) {
                             Text(advert.title)
-                                .font(.compatibleSystem(.footnote, design: .rounded, weight: .bold))
+                                .font(.system(.footnote, design: .rounded, weight: .bold))
                                 .foregroundColor(advert.text)
                                 .lineLimit(1)
                                 .minimumScaleFactor(0.75)
                             Text(advert.name)
-                                .font(.compatibleSystem(.caption2, design: .rounded, weight: .medium).smallCaps())
+                                .font(.system(.caption2, design: .rounded, weight: .medium).smallCaps())
                                 .foregroundColor(advert.tint)
                                 .opacity(0.8)
                         }
@@ -66,29 +85,37 @@ public struct BillboardBannerView : View {
                 .contentShape(Rectangle())
             }
             .buttonStyle(.plain)
-            Spacer()
             
             Group {
                 if !hideDismissButtonAndTimer {
                     if canDismiss {
                         Button {
-                            #if os(iOS)
+                        #if os(iOS)
                             if config.allowHaptics {
                                 haptics(.light)
                             }
                             #endif
                             showAdvertisement = false
                         } label: {
+#if os(visionOS)
+                            Label("Dismiss advertisement", systemImage: "xmark")
+                                .labelStyle(.iconOnly)
+                                .font(.system(.title3, design: .rounded, weight: .bold))
+                                .symbolRenderingMode(.hierarchical)
+#else
                             Label("Dismiss advertisement", systemImage: "xmark.circle.fill")
                                 .labelStyle(.iconOnly)
-                                .font(.compatibleSystem(.title2, design: .rounded, weight: .bold))
+                                .font(.system(.title2, design: .rounded, weight: .bold))
                                 .symbolRenderingMode(.hierarchical)
                                 .imageScale(.large)
-#if !os(tvOS)
-                                .controlSize(.large)
-                            #endif
+#endif
                         }
+#if !os(tvOS)
+                        .controlSize(.large)
+#endif
+#if !os(visionOS)
                         .tint(advert.tint)
+#endif
                     } else {
                         BillboardCountdownView(advert:advert,
                                                totalDuration: config.duration,
@@ -112,54 +139,41 @@ public struct BillboardBannerView : View {
         .transaction {
             if reducedMotion { $0.animation = nil }
         }
-        .onChange(of: advert) { _ in
-            Task {
-                await fetchAppIcon()
-            }
-        }
-        
+        .onChange(of: advert, {
+            Task { await fetchAppIcon() }
+        })
     }
     
     
     private func fetchAppIcon() async {
-        if let data = try? await advert.getAppIcon() {
-            await MainActor.run {
-                appIcon = UIImage(data: data)
+        do {
+            loadingNewIcon = true
+            let imageData = try await advert.getAppIcon()
+            if let imageData {
+                await MainActor.run {
+                    appIcon = UIImage(data: imageData)
+                    loadingNewIcon = false
+                }
             }
+        } catch {
+            Logger.billboard.error("\(error.localizedDescription)")
+            loadingNewIcon = false
         }
     }
-
+    
     @ViewBuilder
     var backgroundView : some View {
-        if #available(iOS 16.0, tvOS 16.0, *) {
-            ZStack {
-                RoundedRectangle(cornerRadius: 16, style: .continuous)
-                    .fill(advert.background.gradient)
-                RoundedRectangle(cornerRadius: 16, style: .continuous)
-                    .stroke(Color.primary.opacity(0.1), lineWidth: 1)
-            }
+        RoundedRectangle(cornerRadius: 16, style: .continuous)
+            .fill(advert.background.gradient)
+            .stroke(Color.primary.opacity(0.1), lineWidth: 1)
             .shadow(color: includeShadow ? advert.background.opacity(0.5) : Color.clear, radius: 6, x: 0, y: 2)
-            
-        } else {
-            ZStack {
-                RoundedRectangle(cornerRadius: 16, style: .continuous)
-                    .fill(advert.background)
-                RoundedRectangle(cornerRadius: 16, style: .continuous)
-                    .stroke(Color.primary.opacity(0.1), lineWidth: 1)
-            }
-            .shadow(color: includeShadow ? advert.background.opacity(0.5) : Color.clear, radius: 6, x: 0, y: 2)
-        }
     }
 }
 
-
-struct BillboardBannerView_Previews: PreviewProvider {
-    static var previews: some View {
-        VStack {
-            BillboardBannerView(advert: BillboardSamples.sampleDefaultAd)
-            BillboardBannerView(advert: BillboardSamples.sampleDefaultAd, hideDismissButtonAndTimer: true)
-        }
-        .padding()
-        
+#Preview {
+    VStack {
+        BillboardBannerView(advert: BillboardSamples.sampleDefaultAd)
+        BillboardBannerView(advert: BillboardSamples.sampleDefaultAd, hideDismissButtonAndTimer: true)
     }
+    .padding()
 }

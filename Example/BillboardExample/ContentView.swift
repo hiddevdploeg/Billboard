@@ -13,17 +13,18 @@ struct ContentView: View {
     @StateObject var premium = PremiumStore()
     
     @State private var showRandomAdvert = false
-    @State private var adtoshow :BillboardAd? = nil
-    @State private var allAds : [BillboardAd] = []
+    @State private var adtoshow: BillboardAd? = nil
+    @State private var allAds: [BillboardAd] = []
+    @State private var bannerAd: BillboardAd? = nil
     
     let config = BillboardConfiguration(advertDuration: 5)
     
     var body: some View {
         NavigationStack {
             List {
-                if let advert = allAds.randomElement() {
+                if let bannerAd {
                     Section {
-                        BillboardBannerView(advert: advert, hideDismissButtonAndTimer: true)
+                        BillboardBannerView(advert: bannerAd, hideDismissButtonAndTimer: true)
                             .listRowBackground(Color.clear)
                             .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
                     }
@@ -62,11 +63,11 @@ struct ContentView: View {
                     }
                 }
             }
-            .font(.compatibleSystem(.body, design: .rounded, weight: .medium))
+            .font(.system(.body, design: .rounded, weight: .medium))
         }
         .safeAreaInset(edge: .bottom, content: {
-            if let advert = allAds.randomElement() {
-                BillboardBannerView(advert: advert)
+            if let bannerAd {
+                BillboardBannerView(advert: bannerAd)
                     .padding()
                 
             }
@@ -75,14 +76,15 @@ struct ContentView: View {
             Task {
                 if let allAds = try? await BillboardViewModel.fetchAllAds(from: config.adsJSONURL!) {
                     self.allAds = allAds
+                    self.bannerAd = allAds.randomElement()
                 }
             }
         }
-        .onChange(of: premium.didBuyPremium) { newValue in
-            if newValue {
-                showRandomAdvert = !newValue
+        .onChange(of: premium.didBuyPremium, {
+            if premium.didBuyPremium {
+                showRandomAdvert = !premium.didBuyPremium
             }
-        }
+        })
         .showBillboard(when: $showRandomAdvert) {
             // Replace this view with your Paywall
             VStack {
@@ -102,6 +104,7 @@ struct ContentView: View {
             
             if let allAds = try? await BillboardViewModel.fetchAllAds(from: config.adsJSONURL!) {
                 self.allAds = allAds
+                bannerAd = allAds.randomElement()
             }
         }
     }
