@@ -171,7 +171,8 @@ Here's an example of how your source list could look like.
       "textColor" : "EFDED7",
       "tintColor" : "EFDED7",
       "fullscreen": false,
-      "transparent": true
+      "transparent": true,
+      "adCategory": "music"
     }
   ]
 }

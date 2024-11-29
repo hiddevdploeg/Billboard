@@ -38,7 +38,10 @@ public final class BillboardViewModel : ObservableObject {
         }
     }
     
-    public static func fetchRandomAd(excludedIDs: [String] = []) async throws -> BillboardAd? {
+    public static func fetchRandomAd(
+        excludedIDs: [String] = [],
+        categories: [AdCategory] = AdCategory.allCases
+    ) async throws -> BillboardAd? {
         guard  let url = BillboardConfiguration().adsJSONURL else {
             return nil
         }
@@ -50,7 +53,12 @@ public final class BillboardViewModel : ObservableObject {
             let (data, _) = try await session.data(from: url)
             let decoder = JSONDecoder()
             let response = try decoder.decode(BillboardAdResponse.self, from: data)
-            let filteredAds = response.ads.filter({ !excludedIDs.contains($0.appStoreID) })
+            var filteredAds = response.ads.filter({ !excludedIDs.contains($0.appStoreID) })
+            
+            if categories.count != AdCategory.allCases.count {
+                filteredAds = filteredAds.filter({ categories.contains($0.category) })
+            }
+            
             let adToShow = filteredAds.randomElement()
             
             if let adToShow {
@@ -74,7 +82,11 @@ public final class BillboardViewModel : ObservableObject {
         return nil
     }
     
-    public static func fetchRandomAd(from url: URL, excludedIDs: [String] = []) async throws -> BillboardAd? {
+    public static func fetchRandomAd(
+        from url: URL,
+        excludedIDs: [String] = [],
+        categories: [AdCategory] = AdCategory.allCases
+    ) async throws -> BillboardAd? {
         let session = URLSession(configuration: BillboardViewModel.networkConfiguration)
         session.sessionDescription = "Fetching Billboard Ad"
         
@@ -82,7 +94,13 @@ public final class BillboardViewModel : ObservableObject {
             let (data, _) = try await session.data(from: url)
             let decoder = JSONDecoder()
             let response = try decoder.decode(BillboardAdResponse.self, from: data)
-            let filteredAds = response.ads.filter({ !excludedIDs.contains($0.appStoreID) })
+            
+            var filteredAds = response.ads.filter({ !excludedIDs.contains($0.appStoreID) })
+            
+            if categories.count != AdCategory.allCases.count {
+                filteredAds = filteredAds.filter({ categories.contains($0.category) })
+            }
+            
             let adToShow = filteredAds.randomElement()
             
             if let adToShow {

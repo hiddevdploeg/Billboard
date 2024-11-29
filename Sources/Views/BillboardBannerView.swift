@@ -48,11 +48,19 @@ public struct BillboardBannerView : View {
                                 .foregroundStyle(advert.text)
                         }
                     }
+#if os(tvOS)
+                    .frame(width: 120, height: 120)
+                    .clipShape(RoundedRectangle(cornerRadius: 26, style: .continuous))
+                    #else
                     .frame(width: 60, height: 60)
-                    .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+                    .clipShape(RoundedRectangle(cornerRadius: 13, style: .continuous))
+                    #endif
                     .accessibilityHidden(true)
                     .transition(.blurReplace)
                     .animation(.default, value: loadingNewIcon)
+#if os(tvOS)
+                    .padding(.leading)
+                    #endif
                     
                     
                     VStack(alignment: .leading, spacing: 4) {

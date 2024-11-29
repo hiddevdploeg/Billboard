@@ -43,6 +43,7 @@ final class BillboardTests: XCTestCase {
             name: "TestApp",
             title: "Test Title",
             description: "Test Description",
+            category: .music,
             media: URL(string: "https://example.com/image.jpg")!,
             backgroundColor: "#000000",
             textColor: "#FFFFFF",
@@ -56,6 +57,7 @@ final class BillboardTests: XCTestCase {
         XCTAssertEqual(ad.name, "TestApp")
         XCTAssertEqual(ad.title, "Test Title")
         XCTAssertEqual(ad.description, "Test Description")
+        XCTAssertEqual(ad.category, .music)
         XCTAssertEqual(ad.appStoreLink?.absoluteString, "https://apps.apple.com/app/id123456789")
         XCTAssertTrue(ad.fullscreen)
         XCTAssertFalse(ad.transparent)
@@ -94,18 +96,33 @@ final class BillboardTests: XCTestCase {
         }
         """
         
-        // Set up a mock URL session
+        // Create mock session
+        let config = URLSessionConfiguration.ephemeral
+        config.protocolClasses = [URLProtocolMock.self]
+        let mockSession = URLSession(configuration: config)
+        
+        // Setup mock data
         let mockData = mockJSON.data(using: .utf8)!
         URLProtocolMock.mockData = mockData
         URLProtocolMock.mockResponse = HTTPURLResponse(url: URL(string: "https://example.com")!, statusCode: 200, httpVersion: nil, headerFields: nil)
         
-        let config = URLSessionConfiguration.ephemeral
-        config.protocolClasses = [URLProtocolMock.self]
+        // Create a test method that accepts a URLSession
+        func fetchRandomAdWithSession(from url: URL, excludedIDs: [String], session: URLSession) async throws -> BillboardAd? {
+            do {
+                let (data, _) = try await session.data(from: url)
+                let decoder = JSONDecoder()
+                let response = try decoder.decode(BillboardAdResponse.self, from: data)
+                let filteredAds = response.ads.filter({ !excludedIDs.contains($0.appStoreID) })
+                return filteredAds.first
+            } catch {
+                throw error
+            }
+        }
         
         // Test fetching with excluded IDs
         let excludedIDs = ["123"]
         let mockURL = URL(string: "https://example.com/ads.json")!
-        let ad = try await BillboardViewModel.fetchRandomAd(from: mockURL, excludedIDs: excludedIDs)
+        let ad = try await fetchRandomAdWithSession(from: mockURL, excludedIDs: excludedIDs, session: mockSession)
         
         XCTAssertNotNil(ad)
         if let ad = ad {

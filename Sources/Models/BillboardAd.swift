@@ -10,6 +10,32 @@ import SwiftUI
 
 public struct BillboardAd: Codable, Identifiable, Hashable, Sendable {
 
+    public init(
+        appStoreID: String,
+        name: String,
+        title: String,
+        description: String,
+        category: AdCategory? = nil,
+        media: URL,
+        backgroundColor: String,
+        textColor: String,
+        tintColor: String,
+        fullscreen: Bool,
+        transparent: Bool
+    ) {
+        self.appStoreID = appStoreID
+        self.name = name
+        self.title = title
+        self.description = description
+        self.media = media
+        self.backgroundColor = backgroundColor
+        self.textColor = textColor
+        self.tintColor = tintColor
+        self.adCategory = category?.rawValue
+        self.fullscreen = fullscreen
+        self.transparent = transparent
+    }
+    
     public static func == (lhs: BillboardAd, rhs: BillboardAd) -> Bool {
         lhs.id == rhs.id
     }
@@ -52,6 +78,9 @@ public struct BillboardAd: Codable, Identifiable, Hashable, Sendable {
     public let tintColor: String
     
     
+    public let adCategory: String?
+    
+    
     /// For fullscreen media styling (should be true when the main image is a photo)
     public let fullscreen: Bool
     
@@ -70,6 +99,9 @@ public struct BillboardAd: Codable, Identifiable, Hashable, Sendable {
         return Color(hex: self.tintColor)
     }
     
+    public var category: AdCategory {
+        AdCategory(rawValue: adCategory ?? "") ?? .none
+    }
     
     public var appIconURL: URL? {
         return URL(string: "http://itunes.apple.com/lookup?id=\(appStoreID)")
@@ -94,6 +126,7 @@ public struct BillboardAd: Codable, Identifiable, Hashable, Sendable {
 
     }
 }
+
 
 
 

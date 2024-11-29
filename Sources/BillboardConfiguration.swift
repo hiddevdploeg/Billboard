@@ -21,12 +21,20 @@ public struct BillboardConfiguration {
     /// Provide a list of Apple ID's that you want to exclude from showing up (e.g. your own app)
     public let excludedIDs : [String]
     
-    public init(adsJSONURL: URL? = URL(string:"https://billboard-source.vercel.app/ads.json"),
-                allowHaptics: Bool = true,
-                advertDuration: TimeInterval = 15.0, excludedIDs: [String] = []) {
+    /// All Categories that should be included in the ads that are shown
+    public let categories : [String]
+    
+    public init(
+        adsJSONURL: URL? = URL(string:"https://billboard-source.vercel.app/ads.json"),
+        allowHaptics: Bool = true,
+        advertDuration: TimeInterval = 15.0,
+        excludedIDs: [String] = [],
+        categories: [AdCategory] = AdCategory.allCases
+    ) {
         self.adsJSONURL = adsJSONURL
         self.allowHaptics = allowHaptics
         self.duration = advertDuration
         self.excludedIDs = excludedIDs
+        self.categories = categories.map { $0.rawValue }
     }
 }
