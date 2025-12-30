@@ -12,7 +12,7 @@ public struct BillboardConfiguration {
     /// The URL pointing to the JSON in the `BillboardAdResponse` format.
     public let adsJSONURL: URL?
     
-    /// Enable or disable haptics
+    /// Enable or disable haptics. This will be disabled on visionOS and macOS.
     public let allowHaptics: Bool
     
     /// The duration of the advertisement

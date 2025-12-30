@@ -17,7 +17,7 @@ public struct BillboardBannerView : View {
     let hideDismissButtonAndTimer : Bool
     
     @State private var canDismiss = false
-    @State private var appIcon : UIImage? = nil
+    @State private var appIcon : NSUIImage? = nil
     @State private var showAdvertisement = true
     @State private var loadingNewIcon = true
     
@@ -238,7 +238,7 @@ public struct BillboardBannerView : View {
                 HStack(spacing: 10) {
                     ZStack {
                         if let appIcon, !loadingNewIcon {
-                            Image(uiImage: appIcon)
+                            Image(nsuiImage: appIcon)
                                 .resizable()
                         } else {
                             advert.tint
@@ -279,9 +279,11 @@ public struct BillboardBannerView : View {
                 if !hideDismissButtonAndTimer {
                     if canDismiss {
                         Button("Dismiss advertisement", systemImage: "xmark.circle.fill") {
+                            #if os(iOS)
                             if config.allowHaptics {
                                 haptics(.light)
                             }
+                            #endif
                             showAdvertisement = false
                         }
                         .labelStyle(.iconOnly)
@@ -334,7 +336,7 @@ public struct BillboardBannerView : View {
             let imageData = try await advert.getAppIcon()
             if let imageData {
                 await MainActor.run {
-                    appIcon = UIImage(data: imageData)
+                    appIcon = NSUIImage(data: imageData)
                 }
             }
         } catch {

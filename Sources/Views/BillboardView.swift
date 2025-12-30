@@ -23,11 +23,10 @@ public struct BillboardView<Content:View>: View {
     }
     
     public var body: some View {
-#if os(visionOS)
+    #if os(visionOS)
         NavigationStack {
             ZStack(alignment: .top) {
                 advert.background.ignoresSafeArea()
-                
                 if advert.fullscreen {
                     FullScreenAdView(advert: advert)
                 } else {
@@ -36,23 +35,21 @@ public struct BillboardView<Content:View>: View {
             }
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
-                    // TimerView
                     if canDismiss {
                         BillboardDismissButton()
                             .onAppear {
-#if os(iOS)
+                                #if os(iOS)
                                 if config.allowHaptics {
                                     haptics(.light)
                                 }
-#endif
+                                #endif
                             }
                     } else {
-                        BillboardCountdownView(advert:advert,
+                        BillboardCountdownView(advert: advert,
                                                totalDuration: config.duration,
                                                canDismiss: $canDismiss)
                     }
                 }
-                
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
                         showPaywall.toggle()
@@ -69,14 +66,14 @@ public struct BillboardView<Content:View>: View {
         .sheet(isPresented: $showPaywall) { paywall() }
         .onAppear(perform: displayOverlay)
         .onDisappear(perform: dismissOverlay)
-        .onChange(of: showPaywall, {
+        .onChange(of: showPaywall) {
             if showPaywall {
                 dismissOverlay()
             } else {
                 displayOverlay()
             }
-        })
-#elseif os(tvOS)
+        }
+        #elseif os(tvOS)
         ZStack(alignment: .top) {
             advert.background.ignoresSafeArea()
             if advert.fullscreen {
@@ -85,17 +82,14 @@ public struct BillboardView<Content:View>: View {
                 DefaultAdView(advert: advert)
             }
             HStack {
-                // TimerView
                 if canDismiss {
                     BillboardDismissButton()
                 } else {
-                    BillboardCountdownView(advert:advert,
+                    BillboardCountdownView(advert: advert,
                                            totalDuration: config.duration,
                                            canDismiss: $canDismiss)
                 }
-                
                 Spacer()
-                
                 if #available(tvOS 26.0, *) {
                     Button("Remove Ads") {
                         showPaywall.toggle()
@@ -109,7 +103,6 @@ public struct BillboardView<Content:View>: View {
                     .fontWeight(.bold)
                     .buttonStyle(.bordered)
                 }
-                
             }
             .frame(height: 40)
             .tint(advert.tint)
@@ -121,7 +114,6 @@ public struct BillboardView<Content:View>: View {
         NavigationStack {
             ZStack(alignment: .top) {
                 advert.background.ignoresSafeArea()
-                
                 if advert.fullscreen {
                     FullScreenAdView(advert: advert)
                 } else {
@@ -129,7 +121,7 @@ public struct BillboardView<Content:View>: View {
                 }
             }
             .background(advert.background.ignoresSafeArea())
-            .navigationBarTitleDisplayMode(.inline)
+            .toolbarTitleDisplayMode(.inline)
             .toolbar {
                 #if !os(tvOS)
                 if canDismiss {
@@ -137,16 +129,14 @@ public struct BillboardView<Content:View>: View {
                         BillboardDismissButton()
                             .labelStyle(.iconOnly)
                     }
-                    
                 } else {
                     ToolbarItem(placement: .cancellationAction) {
-                        BillboardCountdownView(advert:advert,
+                        BillboardCountdownView(advert: advert,
                                                totalDuration: config.duration,
                                                canDismiss: $canDismiss)
-                        .padding(2)
+                            .padding(2)
                     }
                 }
-                
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Remove Ads") {
                         showPaywall.toggle()
@@ -158,28 +148,28 @@ public struct BillboardView<Content:View>: View {
             }
         }
         .sheet(isPresented: $showPaywall) { paywall() }
+        #if !os(macOS)
         .onAppear(perform: displayOverlay)
         .onDisappear(perform: dismissOverlay)
-        .onChange(of: showPaywall, {
+        .onChange(of: showPaywall) {
             if showPaywall {
                 dismissOverlay()
             } else {
                 displayOverlay()
             }
-        })
+        }
         .statusBarHidden(true)
-#endif
-        
+        #endif
+        #endif
     }
     
     //MARK: - App Store Overlay
-#if !os(tvOS)
+    #if !(os(tvOS) || os(macOS))
     private var storeOverlay : SKOverlay {
         let config = SKOverlay.AppConfiguration(appIdentifier: advert.appStoreID, position: .bottom)
         let overlay = SKOverlay(configuration: config)
         return overlay
     }
-    
     
     private let scene = UIApplication.shared.connectedScenes
         .compactMap({ scene -> UIWindow? in
@@ -197,13 +187,13 @@ public struct BillboardView<Content:View>: View {
         guard let scene else { return }
         storeOverlay.present(in: scene)
         
-#if os(iOS)
+        #if os(iOS)
         if config.allowHaptics {
             haptics(.heavy)
         }
-#endif
+        #endif
     }
-#endif
+    #endif
 }
 
 
@@ -216,3 +206,4 @@ public struct BillboardView<Content:View>: View {
         }
     }
 }
+

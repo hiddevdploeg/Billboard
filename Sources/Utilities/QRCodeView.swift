@@ -36,7 +36,7 @@ public struct QRCodeView: View {
     }
     
     // Generate the QR code image
-    private var qrCodeImage: UIImage? {
+    private var qrCodeImage: NSUIImage? {
         guard let outputImage = qrCodeGenerator.outputImage else { return nil }
         
         // Scale the image to a reasonable size
@@ -47,13 +47,13 @@ public struct QRCodeView: View {
             return nil
         }
         
-        return UIImage(cgImage: cgImage)
+        return NSUIImage(cgImage: cgImage)
     }
     
     public var body: some View {
         Group {
             if let image = qrCodeImage {
-                Image(uiImage: image)
+                Image(nsuiImage: image)
                     .interpolation(.none)
                     .resizable()
                     .scaledToFit()
